@@ -46,6 +46,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         LblUsuario = new javax.swing.JLabel();
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         MenCad = new javax.swing.JMenu();
         MenCadCli = new javax.swing.JMenuItem();
         MenCadVei = new javax.swing.JMenuItem();
@@ -62,6 +63,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Locadora BSL");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,6 +91,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jMenu1.setForeground(new java.awt.Color(60, 63, 65));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/211762_information_icon.png"))); // NOI18N
+        jMenu1.setPreferredSize(new java.awt.Dimension(30, 30));
+        jMenuBar1.add(jMenu1);
 
         MenCad.setText("Cadastro");
 
@@ -191,12 +198,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(367, Short.MAX_VALUE)
+                .addContainerGap(358, Short.MAX_VALUE)
                 .addComponent(LblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblData)
                 .addGap(109, 109, 109))
-            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(916, 596));
@@ -220,6 +227,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenCadLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadLocActionPerformed
         // TODO add your handling code here:
+        TelaLocacao locacao = new TelaLocacao();
+        locacao.setVisible(true);
+        Desktop.add(locacao);
     }//GEN-LAST:event_MenCadLocActionPerformed
 
     private void MenCadFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFunActionPerformed
@@ -294,6 +304,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenCadVei;
     private javax.swing.JMenu MenOpc;
     private javax.swing.JMenuItem MenOpcSai;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
