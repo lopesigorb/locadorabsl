@@ -224,10 +224,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenCadFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFunActionPerformed
         // TODO add your handling code here:
+        TelaFuncionario funcionario = new TelaFuncionario ();
+        funcionario.setVisible(true);
+        Desktop.add(funcionario);
     }//GEN-LAST:event_MenCadFunActionPerformed
 
     private void MenCadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadUsuActionPerformed
         // TODO add your handling code here:
+        TelaUsuario usuario = new TelaUsuario ();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
     }//GEN-LAST:event_MenCadUsuActionPerformed
 
     private void MenAjuSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAjuSobActionPerformed
@@ -235,7 +241,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenAjuSobActionPerformed
 
     private void MenOpcSaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenOpcSaiActionPerformed
-        // TODO add your handling code here:
+        // exibe uma caixa de diálogo
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (sair == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
     }//GEN-LAST:event_MenOpcSaiActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

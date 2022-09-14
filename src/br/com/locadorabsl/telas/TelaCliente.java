@@ -173,6 +173,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Cliente");
         setPreferredSize(new java.awt.Dimension(671, 557));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
