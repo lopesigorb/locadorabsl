@@ -46,7 +46,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         LblUsuario = new javax.swing.JLabel();
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        MenAta = new javax.swing.JMenu();
         MenCad = new javax.swing.JMenu();
         MenCadCli = new javax.swing.JMenuItem();
         MenCadVei = new javax.swing.JMenuItem();
@@ -92,10 +92,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jMenu1.setForeground(new java.awt.Color(60, 63, 65));
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/211762_information_icon.png"))); // NOI18N
-        jMenu1.setPreferredSize(new java.awt.Dimension(30, 30));
-        jMenuBar1.add(jMenu1);
+        MenAta.setForeground(new java.awt.Color(60, 63, 65));
+        MenAta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/211762_information_icon.png"))); // NOI18N
+        MenAta.setPreferredSize(new java.awt.Dimension(30, 30));
+        MenAta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenAtaMouseClicked(evt);
+            }
+        });
+        MenAta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenAtaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenAta);
 
         MenCad.setText("Cadastro");
 
@@ -203,7 +213,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblData)
                 .addGap(109, 109, 109))
-            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(916, 596));
@@ -248,6 +258,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenAjuSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAjuSobActionPerformed
         // TODO add your handling code here:
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
     }//GEN-LAST:event_MenAjuSobActionPerformed
 
     private void MenOpcSaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenOpcSaiActionPerformed
@@ -264,6 +276,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         LblData.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
+
+    private void MenAtaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAtaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_MenAtaActionPerformed
+
+    private void MenAtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenAtaMouseClicked
+        // TODO add your handling code here:
+        TelaAtalhos atalhos = new TelaAtalhos ();
+        atalhos.setVisible(true);
+    }//GEN-LAST:event_MenAtaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -306,6 +329,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel LblUsuario;
     private javax.swing.JMenu MenAju;
     private javax.swing.JMenuItem MenAjuSob;
+    private javax.swing.JMenu MenAta;
     private javax.swing.JMenu MenCad;
     private javax.swing.JMenuItem MenCadCli;
     public static javax.swing.JMenuItem MenCadFun;
@@ -314,7 +338,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenCadVei;
     private javax.swing.JMenu MenOpc;
     private javax.swing.JMenuItem MenOpcSai;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
