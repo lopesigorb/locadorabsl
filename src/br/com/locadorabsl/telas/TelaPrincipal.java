@@ -93,8 +93,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         MenAta.setForeground(new java.awt.Color(60, 63, 65));
-        MenAta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/211762_information_icon.png"))); // NOI18N
-        MenAta.setPreferredSize(new java.awt.Dimension(30, 30));
+        MenAta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/352423_help_icon.png"))); // NOI18N
+        MenAta.setPreferredSize(new java.awt.Dimension(40, 40));
         MenAta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 MenAtaMouseClicked(evt);
@@ -208,12 +208,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(358, Short.MAX_VALUE)
+                .addContainerGap(346, Short.MAX_VALUE)
                 .addComponent(LblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblData)
                 .addGap(109, 109, 109))
-            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(916, 596));
