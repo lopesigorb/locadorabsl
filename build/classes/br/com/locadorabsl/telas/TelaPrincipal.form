@@ -210,7 +210,7 @@
               <Component id="LblData" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
           </Group>
-          <Component id="Desktop" alignment="0" pref="527" max="32767" attributes="0"/>
+          <Component id="Desktop" alignment="0" pref="525" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
