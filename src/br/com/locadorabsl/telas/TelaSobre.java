@@ -31,7 +31,8 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sobre");
 
         jLabel1.setText("Desenvolvido por Bernardo Schossler, Bruna Borck e Igor Lopes");
 
@@ -39,7 +40,7 @@ public class TelaSobre extends javax.swing.JFrame {
 
         jLabel3.setText("Sistema para Gerenciamento de Cadastros e Serviços");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Aluno\\Desktop\\Bruna\\Icones\\GNU.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/GNU.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +73,7 @@ public class TelaSobre extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
