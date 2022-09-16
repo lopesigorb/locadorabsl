@@ -46,6 +46,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         LblUsuario = new javax.swing.JLabel();
         Desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        MenAta = new javax.swing.JMenu();
         MenCad = new javax.swing.JMenu();
         MenCadCli = new javax.swing.JMenuItem();
         MenCadVei = new javax.swing.JMenuItem();
@@ -62,6 +63,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Locadora BSL");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,6 +91,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        MenAta.setForeground(new java.awt.Color(60, 63, 65));
+        MenAta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/352423_help_icon.png"))); // NOI18N
+        MenAta.setPreferredSize(new java.awt.Dimension(40, 40));
+        MenAta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenAtaMouseClicked(evt);
+            }
+        });
+        MenAta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenAtaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenAta);
 
         MenCad.setText("Cadastro");
 
@@ -191,12 +208,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(367, Short.MAX_VALUE)
+                .addContainerGap(346, Short.MAX_VALUE)
                 .addComponent(LblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblData)
                 .addGap(109, 109, 109))
-            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(916, 596));
@@ -220,22 +237,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenCadLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadLocActionPerformed
         // TODO add your handling code here:
+        TelaLocacao locacao = new TelaLocacao();
+        locacao.setVisible(true);
+        Desktop.add(locacao);
     }//GEN-LAST:event_MenCadLocActionPerformed
 
     private void MenCadFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFunActionPerformed
         // TODO add your handling code here:
+        TelaFuncionario funcionario = new TelaFuncionario ();
+        funcionario.setVisible(true);
+        Desktop.add(funcionario);
     }//GEN-LAST:event_MenCadFunActionPerformed
 
     private void MenCadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadUsuActionPerformed
         // TODO add your handling code here:
+        TelaUsuario usuario = new TelaUsuario ();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
     }//GEN-LAST:event_MenCadUsuActionPerformed
 
     private void MenAjuSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAjuSobActionPerformed
         // TODO add your handling code here:
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
     }//GEN-LAST:event_MenAjuSobActionPerformed
 
     private void MenOpcSaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenOpcSaiActionPerformed
-        // TODO add your handling code here:
+        // exibe uma caixa de diálogo
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (sair == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
     }//GEN-LAST:event_MenOpcSaiActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -244,6 +276,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         LblData.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
+
+    private void MenAtaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAtaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_MenAtaActionPerformed
+
+    private void MenAtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenAtaMouseClicked
+        // TODO add your handling code here:
+        TelaAtalhos atalhos = new TelaAtalhos ();
+        atalhos.setVisible(true);
+    }//GEN-LAST:event_MenAtaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -286,6 +329,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel LblUsuario;
     private javax.swing.JMenu MenAju;
     private javax.swing.JMenuItem MenAjuSob;
+    private javax.swing.JMenu MenAta;
     private javax.swing.JMenu MenCad;
     private javax.swing.JMenuItem MenCadCli;
     public static javax.swing.JMenuItem MenCadFun;
