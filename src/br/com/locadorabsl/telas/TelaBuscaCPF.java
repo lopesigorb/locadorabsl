@@ -57,6 +57,7 @@ public class TelaBuscaCPF extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar CPF");
+        setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
         tblBuscaCpf.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,7 +157,7 @@ public class TelaBuscaCPF extends javax.swing.JFrame {
         ClienteDAO dao = new ClienteDAO();
         clientes = dao.pesquisaCpf(txtBuscaCpf.getText());
         for (Cliente c : clientes) {
-            this.modelo.addRow(new Object[]{c.getCpf(), c.getNome(), c.getTelefone()});
+            this.modelo.addRow(new Object[]{ c.getCpf(), c.getNome(), c.getTelefone() });
         }
     }
 

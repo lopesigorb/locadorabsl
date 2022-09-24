@@ -47,4 +47,40 @@ public class ClienteDAO {
         return clientes;
     }
     
+    
+    public List<Cliente> pesquisarNome(String nome, String opcao) {
+        Connection con = ModuloConexao.conector();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cliente> clientes = new ArrayList<>();
+        String sql;
+        
+        try {
+            if (opcao.equals("CPF")){
+                sql = "select * from cliente where cpf like ?";
+            } else if (opcao.equals("Nome")){
+                sql = "select * from cliente where nome like ?";                
+            } else {
+                sql = "select * from cliente where cnh like ?";
+            }
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + nome + "%");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setId_cliente(rs.getInt("id_cliente"));
+                cliente.setCnh(rs.getString("cnh"));
+                cliente.setEndereco(rs.getString("endereco"));
+                clientes.add(cliente);
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        
+        return clientes;
+    }
 }

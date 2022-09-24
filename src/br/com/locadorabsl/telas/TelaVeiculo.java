@@ -256,6 +256,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Aquisição:");
 
+        TxtVeiId.setEditable(false);
         TxtVeiId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtVeiIdActionPerformed(evt);

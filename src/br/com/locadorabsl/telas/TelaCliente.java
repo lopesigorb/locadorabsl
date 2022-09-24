@@ -21,6 +21,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+
     /**
      * Creates new form TelaCliente
      */
@@ -28,124 +29,125 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-    
-   
-    
-    private void pesquisar() {
-    String sql = "select * from cliente where cpf=?";
-    try{
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1,TxtCliCpf.getText());
-        rs=pst.executeQuery();
-        if (rs.next()) {
-        TxtCliNom.setText(rs.getString(2));
-        TxtCliEnd.setText(rs.getString(3));
-        TxtCliTel.setText(rs.getString(4));
-        TxtCliCnh.setText(rs.getString(5));
-        } else{
-            JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
-            TxtCliCpf.setText(null);
-            TxtCliNom.setText(null);
-            TxtCliEnd.setText(null);
-            TxtCliTel.setText(null);
-            TxtCliCnh.setText(null);      
-        
-        }
-    }catch (Exception e ){
-        JOptionPane.showMessageDialog(null, e);
-    } 
-}
 
-    private void adicionar(){
-    String sql = "insert into cliente(cpf, nome, endereco, telefone, cnh) values(?,?,?,?,?)";
-    try {
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1, TxtCliCpf.getText());
-        pst.setString(2, TxtCliNom.getText());
-        pst.setString(3, TxtCliEnd.getText());
-        pst.setString(4, TxtCliTel.getText());
-        pst.setString(5, TxtCliCnh.getText());
-        // validação dos campos obrigatórios
-        if ((((TxtCliCpf.getText().isEmpty()) || (TxtCliNom.getText().isEmpty())) || 
-        (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-        } else {
-        
-        // a linha abaixo atualiza com os dados do formulario
-        int adicionado = pst.executeUpdate();
-        if(adicionado >0);{
-        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
-            TxtCliCpf.setText(null);
-            TxtCliNom.setText(null);
-            TxtCliEnd.setText(null);
-            TxtCliTel.setText(null);
-            TxtCliCnh.setText(null);
-    }
-        }    
-    }catch(Exception e) {
-        JOptionPane.showMessageDialog(null,e);
-    }
-}
-    
-    
-    private void editar(){
-    String sql="update cliente set nome=?, endereco=?, telefone=?, cnh=? where cpf=?";
-    try{
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1, TxtCliNom.getText());
-        pst.setString(2, TxtCliEnd.getText());
-        pst.setString(3, TxtCliTel.getText());
-        pst.setString(4, TxtCliCnh.getText());
-        pst.setString(5, TxtCliCpf.getText());
-       
-        
-        if ((((TxtCliNom.getText().isEmpty())) || 
-        (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-        } else{
-            int adicionado = pst.executeUpdate();
-            
-            if (adicionado > 0) {
-                JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
+    private void pesquisar() {
+        String sql = "select * from cliente where cpf=? or nome=? or endereco=? or telefone=? or cnh=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, TxtCliCpf.getText());
+            pst.setString(2, TxtCliNom.getText());
+            pst.setString(3, TxtCliEnd.getText());
+            pst.setString(4, TxtCliTel.getText());
+            pst.setString(5, TxtCliCnh.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                TxtCliCpf.setText(rs.getString(1));
+                TxtCliNom.setText(rs.getString(2));
+                TxtCliEnd.setText(rs.getString(3));
+                TxtCliTel.setText(rs.getString(4));
+                TxtCliCnh.setText(rs.getString(5));
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
                 TxtCliCpf.setText(null);
                 TxtCliNom.setText(null);
                 TxtCliEnd.setText(null);
                 TxtCliTel.setText(null);
                 TxtCliCnh.setText(null);
-                
+
             }
-        }
-        }catch(Exception e) {
-        JOptionPane.showMessageDialog(null,e);
-    
-    }
-}
-  
-    
-    private void remover () {
-    int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
-    if (confirma == JOptionPane.YES_OPTION) {
-        String sql = "delete from cliente where cpf=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtCliCpf.getText());
-            int apagado = pst.executeUpdate();
-            if (apagado > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
-            
-            TxtCliCpf.setText(null);
-            TxtCliNom.setText(null);
-            TxtCliEnd.setText(null);
-            TxtCliTel.setText(null);
-            TxtCliCnh.setText(null);
-            
-            }           
-        }catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
-}
+    private void adicionar() {
+        String sql = "insert into cliente(cpf, nome, endereco, telefone, cnh) values(?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, TxtCliCpf.getText());
+            pst.setString(2, TxtCliNom.getText());
+            pst.setString(3, TxtCliEnd.getText());
+            pst.setString(4, TxtCliTel.getText());
+            pst.setString(5, TxtCliCnh.getText());
+            // validação dos campos obrigatórios
+            if ((((TxtCliCpf.getText().isEmpty()) || (TxtCliNom.getText().isEmpty()))
+                    || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+
+                // a linha abaixo atualiza com os dados do formulario
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0);
+                {
+                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
+                    TxtCliCpf.setText(null);
+                    TxtCliNom.setText(null);
+                    TxtCliEnd.setText(null);
+                    TxtCliTel.setText(null);
+                    TxtCliCnh.setText(null);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void editar() {
+        String sql = "update cliente set nome=?, endereco=?, telefone=?, cnh=? where cpf=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, TxtCliNom.getText());
+            pst.setString(2, TxtCliEnd.getText());
+            pst.setString(3, TxtCliTel.getText());
+            pst.setString(4, TxtCliCnh.getText());
+            pst.setString(5, TxtCliCpf.getText());
+
+            if ((((TxtCliNom.getText().isEmpty()))
+                    || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+                int adicionado = pst.executeUpdate();
+
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
+                    TxtCliCpf.setText(null);
+                    TxtCliNom.setText(null);
+                    TxtCliEnd.setText(null);
+                    TxtCliTel.setText(null);
+                    TxtCliCnh.setText(null);
+
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+    }
+
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from cliente where cpf=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtCliCpf.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
+                    TxtCliCpf.setText(null);
+                    TxtCliNom.setText(null);
+                    TxtCliEnd.setText(null);
+                    TxtCliTel.setText(null);
+                    TxtCliCnh.setText(null);
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,42 +242,37 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
-                        .addGap(0, 534, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(BtnCliIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(TxtCliTel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                        .addComponent(TxtCliCnh))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(BtnCliPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(31, 31, 31)
-                                .addComponent(BtnCliEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(BtnCliExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(102, 102, 102))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(TxtCliNom, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtCliEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-                                    .addComponent(TxtCliCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(TxtCliTel)
+                                    .addComponent(TxtCliCnh, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(120, 120, 120))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(TxtCliNom, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TxtCliEnd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtCliCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnCliIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(BtnCliPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(BtnCliEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(BtnCliExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(TxtCliCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,25 +284,21 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TxtCliEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(TxtCliTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(TxtCliCnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnCliExc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnCliEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnCliPes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnCliIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68))
+                    .addComponent(jLabel4)
+                    .addComponent(TxtCliTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TxtCliCnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(79, 79, 79)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnCliExc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCliEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCliPes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCliIns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,7 +311,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     private void BtnCliPesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCliPesActionPerformed
         // TODO add your handling code here:
-        pesquisar();
+        // pesquisar();
+        TelaBuscaClientes tela = new TelaBuscaClientes();
+        TelaPrincipal.abreTela(tela);
+        tela.setVisible(true);
     }//GEN-LAST:event_BtnCliPesActionPerformed
 
     private void BtnCliEdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCliEdiActionPerformed

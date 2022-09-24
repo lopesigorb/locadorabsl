@@ -52,7 +52,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 this.dispose();
             }
         }else{
-            JOptionPane.showMessageDialog(null, "usuario e/ou senha inválido(s)");
+            JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválido(s)");
         }
     }catch (Exception e) { 
         JOptionPane.showMessageDialog(null, e);
@@ -68,7 +68,7 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         conexao = ModuloConexao.conector();
         //A linha abaixo serve de apoio ao status de conexão
-        //System.out.println(conexao);
+        // System.out.println(conexao);
         if (conexao != null) {
             LblStatus.setIcon (new javax.swing.ImageIcon (getClass().getResource ("/br/com/locadorabsl/icones/dbok.png")));
         }else{

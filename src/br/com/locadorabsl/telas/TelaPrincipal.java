@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import javax.swing.JInternalFrame;
 
 
 /**
@@ -31,6 +32,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
        
     }
 
+     private TelaCliente cliente;
+     private TelaVeiculo veiculo;
+     private TelaLocacao locacao;
+     private TelaFuncionario funcionario;
+     private TelaUsuario usuario;
+     private TelaSobre sobre;
+     private TelaAtalhos atalhos;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,7 +73,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Locadora BSL");
         setBackground(new java.awt.Color(204, 204, 204));
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(1920, 1040));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -79,13 +87,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         LblUsuario.setForeground(new java.awt.Color(102, 204, 255));
         LblUsuario.setText("Usuário");
 
-        Desktop.setPreferredSize(new java.awt.Dimension(671, 557));
+        Desktop.setMaximumSize(new java.awt.Dimension(241352463, 241352463));
+        Desktop.setName(""); // NOI18N
+        Desktop.setPreferredSize(new java.awt.Dimension(900, 900));
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 671, Short.MAX_VALUE)
+            .addGap(0, 1750, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,64 +212,100 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LblData)
                     .addComponent(LblUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 1750, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(346, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LblData)
                 .addGap(109, 109, 109))
-            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+            .addComponent(Desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(916, 596));
+        setSize(new java.awt.Dimension(1936, 1039));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenCadCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadCliActionPerformed
         // TODO add your handling code here:
-        TelaCliente cliente = new TelaCliente ();
-        cliente.setVisible(true);
-        Desktop.add(cliente);
+        if(cliente == null){
+            cliente = new TelaCliente();
+        }
+         if(!cliente.isVisible()){
+             Desktop.add(cliente);
+             cliente.setVisible(true);
+         }
+        
+         cliente.toFront();
     }//GEN-LAST:event_MenCadCliActionPerformed
 
     private void MenCadVeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadVeiActionPerformed
         // TODO add your handling code here:
-        TelaVeiculo veiculo = new TelaVeiculo ();
-        veiculo.setVisible(true);
-        Desktop.add(veiculo);
+        if(veiculo == null){
+            veiculo = new TelaVeiculo();
+        }
+         if(!veiculo.isVisible()){
+             Desktop.add(veiculo);
+             veiculo.setVisible(true);
+         }
+        
+         veiculo.toFront();
         
     }//GEN-LAST:event_MenCadVeiActionPerformed
 
     private void MenCadLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadLocActionPerformed
         // TODO add your handling code here:
-        TelaLocacao locacao = new TelaLocacao();
-        locacao.setVisible(true);
-        Desktop.add(locacao);
+        if(locacao == null){
+            locacao = new TelaLocacao();
+        }
+         if(!locacao.isVisible()){
+             Desktop.add(locacao);
+             locacao.setVisible(true);
+         }
+        
+         locacao.toFront();
     }//GEN-LAST:event_MenCadLocActionPerformed
 
     private void MenCadFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFunActionPerformed
         // TODO add your handling code here:
-        TelaFuncionario funcionario = new TelaFuncionario ();
-        funcionario.setVisible(true);
-        Desktop.add(funcionario);
+        if(funcionario == null){
+            funcionario = new TelaFuncionario();
+        }
+         if(!funcionario.isVisible()){
+             Desktop.add(funcionario);
+             funcionario.setVisible(true);
+         }
+        
+         funcionario.toFront();
     }//GEN-LAST:event_MenCadFunActionPerformed
 
     private void MenCadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadUsuActionPerformed
         // TODO add your handling code here:
-        TelaUsuario usuario = new TelaUsuario ();
-        usuario.setVisible(true);
-        Desktop.add(usuario);
+        if(usuario == null){
+            usuario = new TelaUsuario();
+        }
+         if(!usuario.isVisible()){
+             Desktop.add(usuario);
+             usuario.setVisible(true);
+         }
+        
+         usuario.toFront();
     }//GEN-LAST:event_MenCadUsuActionPerformed
 
     private void MenAjuSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenAjuSobActionPerformed
         // TODO add your handling code here:
-        TelaSobre sobre = new TelaSobre();
-        sobre.setVisible(true);
+        if(sobre == null){
+            sobre = new TelaSobre();
+        }
+         if(!sobre.isVisible()){
+             sobre.setVisible(true);
+         }
+        
+         sobre.toFront();
     }//GEN-LAST:event_MenAjuSobActionPerformed
 
     private void MenOpcSaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenOpcSaiActionPerformed
@@ -284,8 +330,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenAtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenAtaMouseClicked
         // TODO add your handling code here:
-        TelaAtalhos atalhos = new TelaAtalhos ();
-        atalhos.setVisible(true);
+        if(atalhos == null){
+            atalhos = new TelaAtalhos();
+        }
+         if(!atalhos.isVisible()){
+             atalhos.setVisible(true);
+         }
+        
+         atalhos.toFront();
     }//GEN-LAST:event_MenAtaMouseClicked
 
     /**
@@ -322,9 +374,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    public static void abreTela(JInternalFrame frame){
+        Desktop.add(frame);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane Desktop;
+    public static javax.swing.JDesktopPane Desktop;
     private javax.swing.JLabel LblData;
     public static javax.swing.JLabel LblUsuario;
     private javax.swing.JMenu MenAju;

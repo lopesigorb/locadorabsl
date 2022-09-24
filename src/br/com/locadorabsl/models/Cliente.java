@@ -9,11 +9,20 @@ package br.com.locadorabsl.models;
  * @author Aluno
  */
 public class Cliente {
+    private int id_cliente;
     private String cpf;
     private String nome;
     private String endereco;
     private String telefone;
     private String cnh;
+    
+     public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
 
     public String getCpf() {
         return cpf;
