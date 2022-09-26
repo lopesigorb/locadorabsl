@@ -17,13 +17,13 @@ import java.util.List;
  * @author Aluno
  */
 public class ClienteDAO {
-    
+
     public List<Cliente> pesquisaCpf(String cpf) {
         Connection con = ModuloConexao.conector();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Cliente> clientes = new ArrayList<>();
-        
+
         try {
             stmt = con.prepareStatement("select cpf as CPF, nome as Nome, telefone as Telefone from cliente where cpf like ?");
             stmt.setString(1, "%" + cpf + "%");
@@ -36,30 +36,29 @@ public class ClienteDAO {
                 cliente.setCpf(rs.getString("CPF"));
 
                 cliente.setTelefone(rs.getString("Telefone"));
-                
+
                 clientes.add(cliente);
             }
-            
+
         } catch (Exception e) {
-            
+
         }
-        
+
         return clientes;
     }
-    
-    
+
     public List<Cliente> pesquisarNome(String nome, String opcao) {
         Connection con = ModuloConexao.conector();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Cliente> clientes = new ArrayList<>();
         String sql;
-        
+
         try {
-            if (opcao.equals("CPF")){
+            if (opcao.equals("CPF")) {
                 sql = "select * from cliente where cpf like ?";
-            } else if (opcao.equals("Nome")){
-                sql = "select * from cliente where nome like ?";                
+            } else if (opcao.equals("Nome")) {
+                sql = "select * from cliente where nome like ?";
             } else {
                 sql = "select * from cliente where cnh like ?";
             }
@@ -76,11 +75,13 @@ public class ClienteDAO {
                 cliente.setEndereco(rs.getString("endereco"));
                 clientes.add(cliente);
             }
-            
+
         } catch (Exception e) {
-            
+
         }
-        
+
         return clientes;
     }
+
+    
 }

@@ -4,18 +4,38 @@
  */
 package br.com.locadorabsl.telas;
 
+import br.com.locadorabsl.dao.VeiculoDAO;
+import br.com.locadorabsl.models.Veiculo;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aluno
  */
 public class TelaBuscaVeiculo extends javax.swing.JFrame {
+    
+     List<Veiculo> veiculos = new ArrayList<>();
+     private DefaultTableModel modelo = new DefaultTableModel();
 
     /**
      * Creates new form TelaBuscaVeiculo
      */
     public TelaBuscaVeiculo() {
         initComponents();
-        
+        modelo.addColumn("ID");
+        modelo.addColumn("Placa");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Modelo");
+        modelo.addColumn("Cor");
+        modelo.addColumn("Ano");
+        modelo.addColumn("RENAVAM");
+        modelo.addColumn("Chassi");
+        modelo.addColumn("Obs.");
+        modelo.addColumn("Km.");
+        TblBusVei.setModel(modelo); 
     }
 
     /**
@@ -28,33 +48,73 @@ public class TelaBuscaVeiculo extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        TblBusVei = new javax.swing.JTable();
+        TxtBusVei = new javax.swing.JTextField();
+        BtnBusVei = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        CmbBusVei = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblBusVei.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Placa", "Marca", "Modelo", "Cor", "Ano", "RENAVAM", "Chassi", "Observação", "Quilometragem", "Aquisição"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
 
-        jLabel1.setText("Modelo");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        jButton1.setText("OK");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TblBusVei);
+        if (TblBusVei.getColumnModel().getColumnCount() > 0) {
+            TblBusVei.getColumnModel().getColumn(0).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(0).setPreferredWidth(1);
+            TblBusVei.getColumnModel().getColumn(1).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(2).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(3).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(4).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(5).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(6).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(7).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(8).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(9).setResizable(false);
+            TblBusVei.getColumnModel().getColumn(10).setResizable(false);
+        }
+
+        TxtBusVei.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtBusVeiKeyPressed(evt);
+            }
+        });
+
+        BtnBusVei.setText("OK");
+        BtnBusVei.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBusVeiActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Busca de Veículos");
+
+        CmbBusVei.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Marca", "Modelo", "Ano" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,38 +123,75 @@ public class TelaBuscaVeiculo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(242, 242, 242)
-                        .addComponent(jLabel2)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(CmbBusVei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(TxtBusVei, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(231, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(BtnBusVei)
+                .addGap(19, 19, 19))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                    .addComponent(CmbBusVei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtBusVei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnBusVei)
+                .addGap(23, 23, 23))
         );
 
         setSize(new java.awt.Dimension(616, 439));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnBusVeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusVeiActionPerformed
+        // TODO add your handling code here:
+        int row = TblBusVei.getSelectedRow();
+        TelaVeiculo.veiIdSelecionado(veiculos.get(row).getId_veiculo());
+        TelaVeiculo.veiPlaSelecionado(veiculos.get(row).getPlaca());
+        TelaVeiculo.veiMarSelecionado(veiculos.get(row).getMarca());
+        TelaVeiculo.veiModSelecionado(veiculos.get(row).getModelo());
+        TelaVeiculo.veiCorSelecionado(veiculos.get(row).getCor());
+        TelaVeiculo.veiAnoSelecionado(veiculos.get(row).getAno());
+        TelaVeiculo.veiRenSelecionado(veiculos.get(row).getRenavam());
+        TelaVeiculo.veiChaSelecionado(veiculos.get(row).getChassi());
+        TelaVeiculo.veiObsSelecionado(veiculos.get(row).getObservacao());
+        TelaVeiculo.veiQuiSelecionado(veiculos.get(row).getQuilom());
+        TelaVeiculo.veiAquSelecionado(veiculos.get(row).getAquisicao());
+        this.dispose();
+    }//GEN-LAST:event_BtnBusVeiActionPerformed
+
+    private void TxtBusVeiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBusVeiKeyPressed
+        // TODO add your handling code here:
+        int key = evt.getKeyCode();
+        if(key == KeyEvent.VK_ENTER){
+        this.modelo.setNumRows(0);    
+        VeiculoDAO dao = new VeiculoDAO();
+        veiculos = new ArrayList();
+        veiculos = (ArrayList<Veiculo>) dao.pesquisarVeiculo(TxtBusVei.getText(), CmbBusVei.getSelectedItem().toString());
+        for (Veiculo c: veiculos){
+            this.modelo.addRow(new Object[]{ c.getId_veiculo(), c.getPlaca(), c.getMarca(), c.getModelo(), c.getCor(),
+                c.getAno(), c.getRenavam(),c.getChassi(), c.getObservacao(), c.getQuilom(), c.getAquisicao()});
+        }
+        
+        }
+    }//GEN-LAST:event_TxtBusVeiKeyPressed
 
     /**
      * @param args the command line arguments
@@ -132,11 +229,11 @@ public class TelaBuscaVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BtnBusVei;
+    private javax.swing.JComboBox<String> CmbBusVei;
+    private javax.swing.JTable TblBusVei;
+    private javax.swing.JTextField TxtBusVei;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

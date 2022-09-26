@@ -10,9 +10,9 @@ package br.com.locadorabsl.models;
  */
 public class Locacao {
     private int id_locacao;
-    private int id_veiculo;
-    private int id_func;
-    private int cpf_cliente;
+    private String veiculo;
+    private String funcionario;
+    private String cpf_cliente;
     private String periodo;
     private float valor;
 
@@ -24,27 +24,27 @@ public class Locacao {
         this.id_locacao = id_locacao;
     }
 
-    public int getId_veiculo() {
-        return id_veiculo;
+    public String getVeiculo() {
+        return veiculo;
     }
 
-    public void setId_veiculo(int id_veiculo) {
-        this.id_veiculo = id_veiculo;
+    public void setVeiculo(String veiculo) {
+        this.veiculo = veiculo;
     }
 
-    public int getId_func() {
-        return id_func;
+    public String getFuncionario() {
+        return funcionario;
     }
 
-    public void setId_func(int id_func) {
-        this.id_func = id_func;
+    public void setFuncionario(String funcionario) {
+        this.funcionario = funcionario;
     }
-
-    public int getCpf_cliente() {
+    
+    public String getCpf_cliente() {
         return cpf_cliente;
     }
 
-    public void setCpf_cliente(int cpf_cliente) {
+    public void setCpf_cliente(String cpf_cliente) {
         this.cpf_cliente = cpf_cliente;
     }
 

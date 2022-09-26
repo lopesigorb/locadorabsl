@@ -110,7 +110,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     }
 
     private void editar() {
-        String sql = "update veiculo set placa=?, marca=?, modelo=?, cor=?, ano=?, renavam=?, chassi=?, observacao=?, quilom=?, aquisicao=?";
+        String sql = "update veiculo set placa=?, marca=?, modelo=?, cor=?, ano=?, renavam=?, chassi=?, observacao=?, quilom=?, aquisicao=? where id_veiculo = ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, TxtVeiPla.getText());
@@ -123,6 +123,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             pst.setString(8, TxtVeiObs.getText());
             pst.setString(9, TxtVeiQui.getText());
             pst.setString(10, TxtVeiAqu.getText());
+            pst.setString(11, TxtVeiId.getText());
 
             if ((((TxtVeiPla.getText().isEmpty()))
                     || (TxtVeiMar.getText().isEmpty())) || (TxtVeiMod.getText().isEmpty()) || (TxtVeiCor.getText().isEmpty()) || (TxtVeiAno.getText().isEmpty()) || (TxtVeiRen.getText().isEmpty()) || (TxtVeiCha.getText().isEmpty()) || (TxtVeiQui.getText().isEmpty()) || (TxtVeiAqu.getText().isEmpty())) {
@@ -216,6 +217,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         BtnVeiPes = new javax.swing.JButton();
         BtnVeiEdi = new javax.swing.JButton();
         BtnVeiExc = new javax.swing.JButton();
+        BtnVeiLim = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -270,7 +272,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         });
 
         BtnVeiIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/adicionarnovo.png"))); // NOI18N
-        BtnVeiIns.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVeiIns.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnVeiIns.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnVeiIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +281,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         });
 
         BtnVeiPes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/pesquisar.png"))); // NOI18N
-        BtnVeiPes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVeiPes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnVeiPes.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnVeiPes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +290,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         });
 
         BtnVeiEdi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/editar.png"))); // NOI18N
-        BtnVeiEdi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVeiEdi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BtnVeiEdi.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnVeiEdi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,6 +303,13 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         BtnVeiExc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVeiExcActionPerformed(evt);
+            }
+        });
+
+        BtnVeiLim.setText("Limpar Campos");
+        BtnVeiLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVeiLimActionPerformed(evt);
             }
         });
 
@@ -348,31 +357,35 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                                 .addComponent(TxtVeiAno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(TxtVeiObs, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TxtVeiQui, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TxtVeiAqu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(75, 75, 75)
+                            .addComponent(BtnVeiIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(64, 64, 64)
+                            .addComponent(BtnVeiPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(70, 70, 70)
+                            .addComponent(BtnVeiEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnVeiExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(TxtVeiObs, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TxtVeiQui, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TxtVeiAqu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(BtnVeiIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(BtnVeiPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(BtnVeiEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnVeiExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(275, 275, 275)
+                        .addComponent(BtnVeiLim)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -408,17 +421,19 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(TxtVeiQui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BtnVeiExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(TxtVeiAqu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnVeiIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnVeiPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(BtnVeiEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnVeiExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(BtnVeiLim)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnVeiIns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnVeiPes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnVeiEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 671, 557);
@@ -439,7 +454,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void BtnVeiPesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVeiPesActionPerformed
         // TODO add your handling code here:
-        pesquisar();
+        TelaBuscaVeiculo tela = new TelaBuscaVeiculo();
+        tela.setVisible(true);
     }//GEN-LAST:event_BtnVeiPesActionPerformed
 
     private void BtnVeiEdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVeiEdiActionPerformed
@@ -452,23 +468,83 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         remover();
     }//GEN-LAST:event_BtnVeiExcActionPerformed
 
+    private void BtnVeiLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVeiLimActionPerformed
+        // TODO add your handling code here:
+        TxtVeiId.setText(null);
+        TxtVeiPla.setText(null);
+        TxtVeiMar.setText(null);
+        TxtVeiMod.setText(null);
+        TxtVeiCor.setText(null);
+        TxtVeiAno.setText(null);
+        TxtVeiRen.setText(null);
+        TxtVeiCha.setText(null);
+        TxtVeiObs.setText(null);
+        TxtVeiQui.setText(null);
+        TxtVeiAqu.setText(null);
+    }//GEN-LAST:event_BtnVeiLimActionPerformed
 
+    public static void veiIdSelecionado(int id){
+        TxtVeiId.setText(String.valueOf(id));
+    }
+    
+    public static void veiPlaSelecionado(String placa){
+        TxtVeiPla.setText(placa);
+    }
+    
+    public static void veiMarSelecionado(String marca){
+        TxtVeiMar.setText(marca);
+    }
+    
+    public static void veiModSelecionado(String modelo){
+        TxtVeiMod.setText(modelo);
+    }
+    
+    public static void veiCorSelecionado(String cor){
+        TxtVeiCor.setText(cor);
+    }
+    
+    public static void veiAnoSelecionado(String ano){
+        TxtVeiAno.setText(ano);
+    }
+    
+    public static void veiRenSelecionado(String renavam){
+        TxtVeiRen.setText(renavam);
+    }
+    
+   public static void veiChaSelecionado(String chassi){
+        TxtVeiCha.setText(chassi);
+    } 
+    
+    public static void veiObsSelecionado(String observacao){
+        TxtVeiObs.setText(observacao);
+    }
+    
+    public static void veiQuiSelecionado(float quilometragem){
+        TxtVeiQui.setText(String.valueOf(quilometragem));
+    }
+    
+    public static void veiAquSelecionado(String aquisicao){
+        TxtVeiAqu.setText(aquisicao);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVeiEdi;
     private javax.swing.JButton BtnVeiExc;
     private javax.swing.JButton BtnVeiIns;
+    private javax.swing.JButton BtnVeiLim;
     private javax.swing.JButton BtnVeiPes;
-    private javax.swing.JTextField TxtVeiAno;
-    private javax.swing.JTextField TxtVeiAqu;
-    private javax.swing.JTextField TxtVeiCha;
-    private javax.swing.JTextField TxtVeiCor;
-    private javax.swing.JTextField TxtVeiId;
-    private javax.swing.JTextField TxtVeiMar;
-    private javax.swing.JTextField TxtVeiMod;
-    private javax.swing.JTextField TxtVeiObs;
-    private javax.swing.JTextField TxtVeiPla;
-    private javax.swing.JTextField TxtVeiQui;
-    private javax.swing.JTextField TxtVeiRen;
+    private static javax.swing.JTextField TxtVeiAno;
+    private static javax.swing.JTextField TxtVeiAqu;
+    private static javax.swing.JTextField TxtVeiCha;
+    private static javax.swing.JTextField TxtVeiCor;
+    private static javax.swing.JTextField TxtVeiId;
+    private static javax.swing.JTextField TxtVeiMar;
+    private static javax.swing.JTextField TxtVeiMod;
+    private static javax.swing.JTextField TxtVeiObs;
+    private static javax.swing.JTextField TxtVeiPla;
+    private static javax.swing.JTextField TxtVeiQui;
+    private static javax.swing.JTextField TxtVeiRen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -37,18 +37,18 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         rs=pst.executeQuery();
         if (rs.next()) {
         TxtLocCpf.setText(rs.getString(2));
-        TxtLocIdv.setText(rs.getString(3));
-        TxtLocPer.setText(rs.getString(4));
-        TxtLocVal.setText(rs.getString(5));
-        TxtLocFun.setText(rs.getString(6));
+        TxtLocVei.setText(rs.getString(3));
+        TxtLocVal.setText(rs.getString(4));
+        TxtLocFun.setText(rs.getString(5));
+        TxtLocPer.setText(rs.getString(6));
         } else{
             JOptionPane.showMessageDialog(null, "Locação não cadastrada");
             TxtLocId.setText(null);
             TxtLocCpf.setText(null);
-            TxtLocIdv.setText(null);
-            TxtLocPer.setText(null);
+            TxtLocVei.setText(null);
             TxtLocVal.setText(null);
-            TxtLocFun.setText(null);      
+            TxtLocFun.setText(null);
+            TxtLocPer.setText(null);      
         
         }
     }catch (Exception e ){
@@ -57,30 +57,30 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 }
     
     private void adicionar(){
-    String sql = "insert into locacao(cpf_cliente, id_veiculo, periodo, valor, id_func) values(?,?,?,?,?)";
+    String sql = "insert into locacao(cpf_cliente, veiculo, periodo, valor, funcionario) values(?,?,?,?,?)";
     try {
         pst=conexao.prepareStatement(sql);
         pst.setString(1, TxtLocCpf.getText());
-        pst.setString(2, TxtLocIdv.getText());
+        pst.setString(2, TxtLocVei.getText());
         pst.setString(3, TxtLocPer.getText());
         pst.setString(4, TxtLocVal.getText());
         pst.setString(5, TxtLocFun.getText());
         // validação dos campos obrigatórios
-        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocIdv.getText().isEmpty())) || 
-        (TxtLocPer.getText().isEmpty())) || (TxtLocVal.getText().isEmpty()) || (TxtLocFun.getText().isEmpty())) {
+        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty())) || 
+        (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
         } else {
         
         // a linha abaixo atualiza com os dados do formulario
         int adicionado = pst.executeUpdate();
-        if(adicionado >0);{
+        if(adicionado > 0);{
         JOptionPane.showMessageDialog(null, "Locação adicionada com sucesso");
             TxtLocId.setText(null);
             TxtLocCpf.setText(null);
-            TxtLocIdv.setText(null);
-            TxtLocPer.setText(null);
+            TxtLocVei.setText(null);
             TxtLocVal.setText(null);
             TxtLocFun.setText(null);
+            TxtLocPer.setText(null);
     }
         }    
     }catch(Exception e) {
@@ -89,18 +89,19 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 }
 
     private void editar(){
-    String sql="update locacao set cpf_cliente=?, id_veiculo=?, periodo=?, valor=?, id_func=? where id_locacao=?";
+    String sql="update locacao set cpf_cliente=?, veiculo=?, periodo=?, valor=?, funcionario=? where id_locacao=?";
     try{
         pst=conexao.prepareStatement(sql);
         pst.setString(1, TxtLocCpf.getText());
-        pst.setString(2, TxtLocIdv.getText());
+        pst.setString(2, TxtLocVei.getText());
         pst.setString(3, TxtLocPer.getText());
         pst.setString(4, TxtLocVal.getText());
         pst.setString(5, TxtLocFun.getText());
+        pst.setString(6, TxtLocId.getText());
        
         
-        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocIdv.getText().isEmpty())) || 
-        (TxtLocPer.getText().isEmpty())) || (TxtLocVal.getText().isEmpty()) || (TxtLocFun.getText().isEmpty())) {
+        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty())) || 
+        (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
         } else{
             int adicionado = pst.executeUpdate();
@@ -109,10 +110,10 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Dados da locação alterados com sucesso");
                 TxtLocId.setText(null);
                 TxtLocCpf.setText(null);
-                TxtLocIdv.setText(null);
-                TxtLocPer.setText(null);
+                TxtLocVei.setText(null);
                 TxtLocVal.setText(null);
                 TxtLocFun.setText(null);
+                TxtLocPer.setText(null);
                 
             }
         }
@@ -135,10 +136,10 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             
                 TxtLocId.setText(null);
                 TxtLocCpf.setText(null);
-                TxtLocIdv.setText(null);
-                TxtLocPer.setText(null);
+                TxtLocVei.setText(null);
                 TxtLocVal.setText(null);
                 TxtLocFun.setText(null);
+                TxtLocPer.setText(null);
             
             }           
         }catch (Exception e) {
@@ -161,18 +162,20 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         TxtLocCpf = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        TxtLocIdv = new javax.swing.JTextField();
+        TxtLocVei = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TxtLocPer = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         TxtLocVal = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         TxtLocFun = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        TxtLocPer = new javax.swing.JTextField();
         BtnLocIns = new javax.swing.JButton();
         BtnLocEdi = new javax.swing.JButton();
         BtnLocExc = new javax.swing.JButton();
         BtnLocPes = new javax.swing.JButton();
-        btnBusCpf = new javax.swing.JButton();
+        BtnBusCpf = new javax.swing.JButton();
+        BtnLocLim = new javax.swing.JButton();
+        BtnBusVei = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -201,27 +204,27 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Veículo");
 
-        TxtLocIdv.addActionListener(new java.awt.event.ActionListener() {
+        TxtLocVei.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtLocIdvActionPerformed(evt);
+                TxtLocVeiActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Período");
 
-        TxtLocPer.addActionListener(new java.awt.event.ActionListener() {
+        TxtLocVal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtLocPerActionPerformed(evt);
+                TxtLocValActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Valor");
 
-        TxtLocVal.addActionListener(new java.awt.event.ActionListener() {
+        TxtLocFun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtLocValActionPerformed(evt);
+                TxtLocFunActionPerformed(evt);
             }
         });
 
@@ -260,10 +263,24 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        btnBusCpf.setText("Buscar CPF");
-        btnBusCpf.addActionListener(new java.awt.event.ActionListener() {
+        BtnBusCpf.setText("Buscar CPF");
+        BtnBusCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBusCpfActionPerformed(evt);
+                BtnBusCpfActionPerformed(evt);
+            }
+        });
+
+        BtnLocLim.setText("Limpar Campos");
+        BtnLocLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLocLimActionPerformed(evt);
+            }
+        });
+
+        BtnBusVei.setText("Buscar Veículo");
+        BtnBusVei.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBusVeiActionPerformed(evt);
             }
         });
 
@@ -272,84 +289,89 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnLocIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(BtnLocPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(BtnLocEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel5))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(TxtLocPer)
-                                .addComponent(TxtLocVal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(44, 44, 44)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TxtLocIdv, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TxtLocId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(TxtLocCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnBusCpf))
-                                .addComponent(TxtLocFun, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(294, 294, 294)))
+                .addGap(73, 73, 73)
+                .addComponent(BtnLocIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(BtnLocPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(BtnLocEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(BtnLocExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 87, Short.MAX_VALUE))
+                .addGap(0, 95, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TxtLocVal)
+                            .addComponent(TxtLocFun, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtLocPer, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtLocId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtLocVei, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TxtLocCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnBusCpf)
+                                    .addComponent(BtnBusVei)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(BtnLocLim)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(TxtLocId, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(TxtLocCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnBusCpf))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TxtLocVei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnBusVei)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(TxtLocPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TxtLocVal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtLocFun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(BtnLocLim)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnLocExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(TxtLocId, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(TxtLocCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnBusCpf)))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(TxtLocIdv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(TxtLocFun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(TxtLocPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtLocVal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnLocPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnLocIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnLocEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(107, 107, 107))
+                    .addComponent(BtnLocExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnLocPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnLocIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnLocEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71))
         );
 
         setBounds(0, 0, 671, 557);
@@ -359,9 +381,9 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtLocIdActionPerformed
 
-    private void TxtLocIdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocIdvActionPerformed
+    private void TxtLocVeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocVeiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtLocIdvActionPerformed
+    }//GEN-LAST:event_TxtLocVeiActionPerformed
 
     private void BtnLocInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLocInsActionPerformed
         // TODO add your handling code here:
@@ -380,10 +402,11 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
     private void BtnLocPesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLocPesActionPerformed
         // TODO add your handling code here:
-        pesquisar();
+        TelaBuscaLocacao tela = new TelaBuscaLocacao();
+        tela.setVisible(true);
     }//GEN-LAST:event_BtnLocPesActionPerformed
 
-    private void btnBusCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusCpfActionPerformed
+    private void BtnBusCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusCpfActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -391,38 +414,76 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             }
         });
         
-    }//GEN-LAST:event_btnBusCpfActionPerformed
+    }//GEN-LAST:event_BtnBusCpfActionPerformed
 
-    private void TxtLocValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocValActionPerformed
+    private void TxtLocFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocFunActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtLocValActionPerformed
+    }//GEN-LAST:event_TxtLocFunActionPerformed
 
     private void TxtLocCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocCpfActionPerformed
         // TODO add your handling code here:
        
     }//GEN-LAST:event_TxtLocCpfActionPerformed
 
-    private void TxtLocPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocPerActionPerformed
+    private void TxtLocValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocValActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtLocPerActionPerformed
+    }//GEN-LAST:event_TxtLocValActionPerformed
+
+    private void BtnBusVeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusVeiActionPerformed
+        // TODO add your handling code here:
+        TelaBuscaVeiCurto tela = new TelaBuscaVeiCurto();
+        tela.setVisible(true);
+    }//GEN-LAST:event_BtnBusVeiActionPerformed
+
+    private void BtnLocLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLocLimActionPerformed
+        // TODO add your handling code here:
+        TxtLocId.setText(null);
+        TxtLocCpf.setText(null);
+        TxtLocVei.setText(null);
+        TxtLocVal.setText(null);
+        TxtLocFun.setText(null);
+        TxtLocPer.setText(null);
+    }//GEN-LAST:event_BtnLocLimActionPerformed
 
     public static void clienteSelecionado(String cpf) {
         System.out.println("CPF ::: " + cpf);
         TxtLocCpf.setText(cpf);
     }
+    
+    public static void veiculoSelecionado(String veiculo){
+        TxtLocVei.setText(veiculo);
+    }
+    
+    public static void locIdSelecionado(int id){
+        TxtLocId.setText(String.valueOf(id));
+    }
+    
+    public static void periodoSelecionado(String periodo){
+        TxtLocPer.setText(periodo);
+    }
+    
+    public static void valorSelecionado(float valor){
+        TxtLocVal.setText(String.valueOf(valor));
+    }
+    
+    public static void funcionarioSelecionado(String funcionario){
+        TxtLocFun.setText(funcionario);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBusCpf;
+    private javax.swing.JButton BtnBusVei;
     private javax.swing.JButton BtnLocEdi;
     private javax.swing.JButton BtnLocExc;
     private javax.swing.JButton BtnLocIns;
+    private javax.swing.JButton BtnLocLim;
     private javax.swing.JButton BtnLocPes;
     private static javax.swing.JTextField TxtLocCpf;
-    private javax.swing.JTextField TxtLocFun;
-    private javax.swing.JTextField TxtLocId;
-    private javax.swing.JTextField TxtLocIdv;
-    private javax.swing.JTextField TxtLocPer;
-    private javax.swing.JTextField TxtLocVal;
-    private javax.swing.JButton btnBusCpf;
+    private static javax.swing.JTextField TxtLocFun;
+    private static javax.swing.JTextField TxtLocId;
+    private static javax.swing.JTextField TxtLocPer;
+    private static javax.swing.JTextField TxtLocVal;
+    private static javax.swing.JTextField TxtLocVei;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

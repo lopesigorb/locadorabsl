@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaBuscaCPF extends javax.swing.JFrame {
     
-    List<Cliente> clientes = new ArrayList<>();
+     List<Cliente> clientes = new ArrayList<>();
      private DefaultTableModel modelo = new DefaultTableModel();
     
 

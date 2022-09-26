@@ -6,7 +6,7 @@ package br.com.locadorabsl.telas;
 
 import br.com.locadorabsl.dao.ClienteDAO;
 import br.com.locadorabsl.models.Cliente;
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,6 +49,8 @@ public class TelaBuscaClientes extends javax.swing.JInternalFrame {
         BtnBusCli = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         CmbBusCli = new javax.swing.JComboBox<>();
+
+        setClosable(true);
 
         TblBusCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,6 +105,11 @@ public class TelaBuscaClientes extends javax.swing.JInternalFrame {
         });
 
         BtnBusCli.setText("Selecionar");
+        BtnBusCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBusCliActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Busca de Clientes");
 
@@ -160,6 +167,7 @@ public class TelaBuscaClientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int key = evt.getKeyCode();
         if(key == KeyEvent.VK_ENTER){
+        this.modelo.setNumRows(0);    
         ClienteDAO dao = new ClienteDAO();
         clientes= new ArrayList();
         clientes = (ArrayList<Cliente>) dao.pesquisarNome(TxtBusCli.getText(), CmbBusCli.getSelectedItem().toString());
@@ -171,6 +179,18 @@ public class TelaBuscaClientes extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_TxtBusCliKeyPressed
+
+    private void BtnBusCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusCliActionPerformed
+        // TODO add your handling code here:
+        int row = TblBusCli.getSelectedRow();
+        TelaCliente.cliIdSelecionado(clientes.get(row).getId_cliente());
+        TelaCliente.cliCpfSelecionado(clientes.get(row).getCpf());
+        TelaCliente.cliNomSelecionado(clientes.get(row).getNome());
+        TelaCliente.cliEndSelecionado(clientes.get(row).getEndereco());
+        TelaCliente.cliTelSelecionado(clientes.get(row).getTelefone());
+        TelaCliente.cliCnhSelecionado(clientes.get(row).getCnh());
+        this.dispose();
+    }//GEN-LAST:event_BtnBusCliActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
