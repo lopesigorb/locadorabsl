@@ -29,127 +29,110 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         conexao = ModuloConexao.conector();
     }
 
-    private void pesquisar() {
-        String sql = "Select * from veiculo where id_veiculo = ?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtVeiId.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                TxtVeiPla.setText(rs.getString(2));
-                TxtVeiMar.setText(rs.getString(3));
-                TxtVeiMod.setText(rs.getString(4));
-                TxtVeiCor.setText(rs.getString(5));
-                TxtVeiAno.setText(rs.getString(6));
-                TxtVeiRen.setText(rs.getString(7));
-                TxtVeiCha.setText(rs.getString(8));
-                TxtVeiObs.setText(rs.getString(9));
-                TxtVeiQui.setText(rs.getString(10));
-                TxtVeiAqu.setText(rs.getString(11));
-            } else {
-                JOptionPane.showMessageDialog(null, "Veiculo não cadastrado");
-                TxtVeiId.setText(null);
-                TxtVeiPla.setText(null);
-                TxtVeiMar.setText(null);
-                TxtVeiMod.setText(null);
-                TxtVeiCor.setText(null);
-                TxtVeiAno.setText(null);
-                TxtVeiRen.setText(null);
-                TxtVeiCha.setText(null);
-                TxtVeiObs.setText(null);
-                TxtVeiQui.setText(null);
-                TxtVeiAqu.setText(null);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
+//    private void pesquisar() {
+//        String sql = "Select * from veiculo where id_veiculo = ?";
+//        try {
+//            pst = conexao.prepareStatement(sql);
+//            pst.setString(1, TxtVeiId.getText());
+//            rs = pst.executeQuery();
+//            if (rs.next()) {
+//                TxtVeiPla.setText(rs.getString(2));
+//                TxtVeiMar.setText(rs.getString(3));
+//                TxtVeiMod.setText(rs.getString(4));
+//                TxtVeiCor.setText(rs.getString(5));
+//                TxtVeiAno.setText(rs.getString(6));
+//                TxtVeiRen.setText(rs.getString(7));
+//                TxtVeiCha.setText(rs.getString(8));
+//                TxtVeiObs.setText(rs.getString(9));
+//                TxtVeiQui.setText(rs.getString(10));
+//                TxtVeiAqu.setText(rs.getString(11));
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Veiculo não cadastrado");
+//                TxtVeiId.setText(null);
+//                TxtVeiPla.setText(null);
+//                TxtVeiMar.setText(null);
+//                TxtVeiMod.setText(null);
+//                TxtVeiCor.setText(null);
+//                TxtVeiAno.setText(null);
+//                TxtVeiRen.setText(null);
+//                TxtVeiCha.setText(null);
+//                TxtVeiObs.setText(null);
+//                TxtVeiQui.setText(null);
+//                TxtVeiAqu.setText(null);
+//            }
+//
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
     private void adicionar() {
         String sql = "insert into veiculo(placa, marca, modelo, cor, ano, renavam, chassi, observacao, quilom, aquisicao) values (?,?,?,?,?,?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtVeiPla.getText());
-            pst.setString(2, TxtVeiMar.getText());
-            pst.setString(3, TxtVeiMod.getText());
-            pst.setString(4, TxtVeiCor.getText());
-            pst.setString(5, TxtVeiAno.getText());
-            pst.setString(6, TxtVeiRen.getText());
-            pst.setString(7, TxtVeiCha.getText());
-            pst.setString(8, TxtVeiObs.getText());
-            pst.setString(9, TxtVeiQui.getText());
-            pst.setString(10, TxtVeiAqu.getText());
-            //validação dos campos obrigatórios
-            if ((((TxtVeiPla.getText().isEmpty()))
-                    || (TxtVeiMar.getText().isEmpty())) || (TxtVeiMod.getText().isEmpty()) || (TxtVeiCor.getText().isEmpty()) || (TxtVeiAno.getText().isEmpty()) || (TxtVeiRen.getText().isEmpty()) || (TxtVeiCha.getText().isEmpty()) || (TxtVeiQui.getText().isEmpty()) || (TxtVeiAqu.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-                // a linha abaixo atualiza com os dados do formulario
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0);
-                {
-                    JOptionPane.showMessageDialog(null, "Veículo adicionado com sucesso");
-                    TxtVeiId.setText(null);
-                    TxtVeiPla.setText(null);
-                    TxtVeiMar.setText(null);
-                    TxtVeiMod.setText(null);
-                    TxtVeiCor.setText(null);
-                    TxtVeiAno.setText(null);
-                    TxtVeiRen.setText(null);
-                    TxtVeiCha.setText(null);
-                    TxtVeiObs.setText(null);
-                    TxtVeiQui.setText(null);
-                    TxtVeiAqu.setText(null);
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja adicionar este veículo?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtVeiPla.getText());
+                pst.setString(2, TxtVeiMar.getText());
+                pst.setString(3, TxtVeiMod.getText());
+                pst.setString(4, TxtVeiCor.getText());
+                pst.setString(5, TxtVeiAno.getText());
+                pst.setString(6, TxtVeiRen.getText());
+                pst.setString(7, TxtVeiCha.getText());
+                pst.setString(8, TxtVeiObs.getText());
+                pst.setString(9, TxtVeiQui.getText());
+                pst.setString(10, TxtVeiAqu.getText());
+                //validação dos campos obrigatórios
+                if ((((TxtVeiPla.getText().isEmpty()))
+                        || (TxtVeiMar.getText().isEmpty())) || (TxtVeiMod.getText().isEmpty()) || (TxtVeiCor.getText().isEmpty()) || (TxtVeiAno.getText().isEmpty()) || (TxtVeiRen.getText().isEmpty()) || (TxtVeiCha.getText().isEmpty()) || (TxtVeiQui.getText().isEmpty()) || (TxtVeiAqu.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    // a linha abaixo atualiza com os dados do formulario
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Veículo adicionado com sucesso");
+                        limpar();
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
-
     }
 
     private void editar() {
         String sql = "update veiculo set placa=?, marca=?, modelo=?, cor=?, ano=?, renavam=?, chassi=?, observacao=?, quilom=?, aquisicao=? where id_veiculo = ?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtVeiPla.getText());
-            pst.setString(2, TxtVeiMar.getText());
-            pst.setString(3, TxtVeiMod.getText());
-            pst.setString(4, TxtVeiCor.getText());
-            pst.setString(5, TxtVeiAno.getText());
-            pst.setString(6, TxtVeiRen.getText());
-            pst.setString(7, TxtVeiCha.getText());
-            pst.setString(8, TxtVeiObs.getText());
-            pst.setString(9, TxtVeiQui.getText());
-            pst.setString(10, TxtVeiAqu.getText());
-            pst.setString(11, TxtVeiId.getText());
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar este veículo?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtVeiPla.getText());
+                pst.setString(2, TxtVeiMar.getText());
+                pst.setString(3, TxtVeiMod.getText());
+                pst.setString(4, TxtVeiCor.getText());
+                pst.setString(5, TxtVeiAno.getText());
+                pst.setString(6, TxtVeiRen.getText());
+                pst.setString(7, TxtVeiCha.getText());
+                pst.setString(8, TxtVeiObs.getText());
+                pst.setString(9, TxtVeiQui.getText());
+                pst.setString(10, TxtVeiAqu.getText());
+                pst.setString(11, TxtVeiId.getText());
 
-            if ((((TxtVeiPla.getText().isEmpty()))
-                    || (TxtVeiMar.getText().isEmpty())) || (TxtVeiMod.getText().isEmpty()) || (TxtVeiCor.getText().isEmpty()) || (TxtVeiAno.getText().isEmpty()) || (TxtVeiRen.getText().isEmpty()) || (TxtVeiCha.getText().isEmpty()) || (TxtVeiQui.getText().isEmpty()) || (TxtVeiAqu.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0);
-                {
-                    JOptionPane.showMessageDialog(null, "Dados do veículo alterados com sucesso");
-                    TxtVeiId.setText(null);
-                    TxtVeiPla.setText(null);
-                    TxtVeiMar.setText(null);
-                    TxtVeiMod.setText(null);
-                    TxtVeiCor.setText(null);
-                    TxtVeiAno.setText(null);
-                    TxtVeiRen.setText(null);
-                    TxtVeiCha.setText(null);
-                    TxtVeiObs.setText(null);
-                    TxtVeiQui.setText(null);
-                    TxtVeiAqu.setText(null);
+                if ((((TxtVeiPla.getText().isEmpty()))
+                        || (TxtVeiMar.getText().isEmpty())) || (TxtVeiMod.getText().isEmpty()) || (TxtVeiCor.getText().isEmpty()) || (TxtVeiAno.getText().isEmpty()) || (TxtVeiRen.getText().isEmpty()) || (TxtVeiCha.getText().isEmpty()) || (TxtVeiQui.getText().isEmpty()) || (TxtVeiAqu.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Dados do veículo alterados com sucesso");
+                        limpar();
+                    }
                 }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-
         }
     }
 
@@ -163,17 +146,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Veiculo removido com sucesso");
-                    TxtVeiId.setText(null);
-                    TxtVeiPla.setText(null);
-                    TxtVeiMar.setText(null);
-                    TxtVeiMod.setText(null);
-                    TxtVeiCor.setText(null);
-                    TxtVeiAno.setText(null);
-                    TxtVeiRen.setText(null);
-                    TxtVeiCha.setText(null);
-                    TxtVeiObs.setText(null);
-                    TxtVeiQui.setText(null);
-                    TxtVeiAqu.setText(null);
+                    limpar();
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -182,6 +155,20 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     }
 
+    
+    private void limpar(){
+        TxtVeiId.setText(null);
+        TxtVeiPla.setText(null);
+        TxtVeiMar.setText(null);
+        TxtVeiMod.setText(null);
+        TxtVeiCor.setText(null);
+        TxtVeiAno.setText(null);
+        TxtVeiRen.setText(null);
+        TxtVeiCha.setText(null);
+        TxtVeiObs.setText(null);
+        TxtVeiQui.setText(null);
+        TxtVeiAqu.setText(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -483,51 +470,51 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         TxtVeiAqu.setText(null);
     }//GEN-LAST:event_BtnVeiLimActionPerformed
 
-    public static void veiIdSelecionado(int id){
+    public static void veiIdSelecionado(int id) {
         TxtVeiId.setText(String.valueOf(id));
     }
-    
-    public static void veiPlaSelecionado(String placa){
+
+    public static void veiPlaSelecionado(String placa) {
         TxtVeiPla.setText(placa);
     }
-    
-    public static void veiMarSelecionado(String marca){
+
+    public static void veiMarSelecionado(String marca) {
         TxtVeiMar.setText(marca);
     }
-    
-    public static void veiModSelecionado(String modelo){
+
+    public static void veiModSelecionado(String modelo) {
         TxtVeiMod.setText(modelo);
     }
-    
-    public static void veiCorSelecionado(String cor){
+
+    public static void veiCorSelecionado(String cor) {
         TxtVeiCor.setText(cor);
     }
-    
-    public static void veiAnoSelecionado(String ano){
+
+    public static void veiAnoSelecionado(String ano) {
         TxtVeiAno.setText(ano);
     }
-    
-    public static void veiRenSelecionado(String renavam){
+
+    public static void veiRenSelecionado(String renavam) {
         TxtVeiRen.setText(renavam);
     }
-    
-   public static void veiChaSelecionado(String chassi){
+
+    public static void veiChaSelecionado(String chassi) {
         TxtVeiCha.setText(chassi);
-    } 
-    
-    public static void veiObsSelecionado(String observacao){
+    }
+
+    public static void veiObsSelecionado(String observacao) {
         TxtVeiObs.setText(observacao);
     }
-    
-    public static void veiQuiSelecionado(float quilometragem){
+
+    public static void veiQuiSelecionado(float quilometragem) {
         TxtVeiQui.setText(String.valueOf(quilometragem));
     }
-    
-    public static void veiAquSelecionado(String aquisicao){
+
+    public static void veiAquSelecionado(String aquisicao) {
         TxtVeiAqu.setText(aquisicao);
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnVeiEdi;
     private javax.swing.JButton BtnVeiExc;

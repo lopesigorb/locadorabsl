@@ -59,72 +59,77 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
     private void adicionar() {
         String sql = "insert into funcionario(nome, endereco, telefone, funcao, cpf, salario) values(?,?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtFunNom.getText());
-            pst.setString(2, TxtFunEnd.getText());
-            pst.setString(3, TxtFunTel.getText());
-            pst.setString(4, TxtFunFun.getText());
-            pst.setString(5, TxtFunCpf.getText());
-            pst.setString(6, TxtFunSal.getText());
-            // validação dos campos obrigatórios
-            if ((((TxtFunNom.getText().isEmpty()) || (TxtFunEnd.getText().isEmpty()))
-                    || (TxtFunTel.getText().isEmpty())) || (TxtFunFun.getText().isEmpty()) || (TxtFunCpf.getText().isEmpty()) || (TxtFunSal.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja adicionar este funcionário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtFunNom.getText());
+                pst.setString(2, TxtFunEnd.getText());
+                pst.setString(3, TxtFunTel.getText());
+                pst.setString(4, TxtFunFun.getText());
+                pst.setString(5, TxtFunCpf.getText());
+                pst.setString(6, TxtFunSal.getText());
+                // validação dos campos obrigatórios
+                if ((((TxtFunNom.getText().isEmpty()) || (TxtFunEnd.getText().isEmpty()))
+                        || (TxtFunTel.getText().isEmpty())) || (TxtFunFun.getText().isEmpty()) || (TxtFunCpf.getText().isEmpty()) || (TxtFunSal.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
 
-                // a linha abaixo atualiza com os dados do formulario
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0);
-                {
-                    JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso");
-                    TxtFunId.setText(null);
-                    TxtFunNom.setText(null);
-                    TxtFunEnd.setText(null);
-                    TxtFunTel.setText(null);
-                    TxtFunFun.setText(null);
-                    TxtFunCpf.setText(null);
-                    TxtFunSal.setText(null);
+                    // a linha abaixo atualiza com os dados do formulario
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso");
+                        TxtFunId.setText(null);
+                        TxtFunNom.setText(null);
+                        TxtFunEnd.setText(null);
+                        TxtFunTel.setText(null);
+                        TxtFunFun.setText(null);
+                        TxtFunCpf.setText(null);
+                        TxtFunSal.setText(null);
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
     }
 
     private void editar() {
         String sql = "update funcionario set nome=?, endereco=?, telefone=?, funcao=?, cpf=?, salario=? where id_func=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtFunNom.getText());
-            pst.setString(2, TxtFunEnd.getText());
-            pst.setString(3, TxtFunTel.getText());
-            pst.setString(4, TxtFunFun.getText());
-            pst.setString(5, TxtFunCpf.getText());
-            pst.setString(6, TxtFunSal.getText());
-            pst.setString(7, TxtFunId.getText());
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar este funcionário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtFunNom.getText());
+                pst.setString(2, TxtFunEnd.getText());
+                pst.setString(3, TxtFunTel.getText());
+                pst.setString(4, TxtFunFun.getText());
+                pst.setString(5, TxtFunCpf.getText());
+                pst.setString(6, TxtFunSal.getText());
+                pst.setString(7, TxtFunId.getText());
 
-            if ((((TxtFunNom.getText().isEmpty()))
-                    || (TxtFunEnd.getText().isEmpty())) || (TxtFunTel.getText().isEmpty()) || (TxtFunFun.getText().isEmpty()) || (TxtFunCpf.getText().isEmpty()) || (TxtFunSal.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-                int adicionado = pst.executeUpdate();
+                if ((((TxtFunNom.getText().isEmpty()))
+                        || (TxtFunEnd.getText().isEmpty())) || (TxtFunTel.getText().isEmpty()) || (TxtFunFun.getText().isEmpty()) || (TxtFunCpf.getText().isEmpty()) || (TxtFunSal.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    int adicionado = pst.executeUpdate();
 
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do Funcionário alterados com sucesso");
-                    TxtFunId.setText(null);
-                    TxtFunNom.setText(null);
-                    TxtFunEnd.setText(null);
-                    TxtFunTel.setText(null);
-                    TxtFunFun.setText(null);
-                    TxtFunCpf.setText(null);
-                    TxtFunSal.setText(null);
+                    if (adicionado > 0) {
+                        JOptionPane.showMessageDialog(null, "Dados do Funcionário alterados com sucesso");
+                        TxtFunId.setText(null);
+                        TxtFunNom.setText(null);
+                        TxtFunEnd.setText(null);
+                        TxtFunTel.setText(null);
+                        TxtFunFun.setText(null);
+                        TxtFunCpf.setText(null);
+                        TxtFunSal.setText(null);
 
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-
         }
     }
 
@@ -182,6 +187,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BtnFunExc = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         TxtFunSal = new javax.swing.JTextField();
+        BtnFunLim = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -213,6 +219,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         jLabel6.setText("Função:");
 
         BtnFunIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/adicionarnovo.png"))); // NOI18N
+        BtnFunIns.setToolTipText("Inserir");
         BtnFunIns.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnFunIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +228,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         });
 
         BtnFunPes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/pesquisar.png"))); // NOI18N
+        BtnFunPes.setToolTipText("Pesquisar");
         BtnFunPes.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnFunPes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +237,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         });
 
         BtnFunEdi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/editar.png"))); // NOI18N
+        BtnFunEdi.setToolTipText("Editar");
         BtnFunEdi.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnFunEdi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +246,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         });
 
         BtnFunExc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/excluir.png"))); // NOI18N
+        BtnFunExc.setToolTipText("Excluir");
         BtnFunExc.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnFunExc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +256,13 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Salário:");
+
+        BtnFunLim.setText("Limpar Campos");
+        BtnFunLim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnFunLimActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,28 +277,33 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 .addComponent(BtnFunEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(BtnFunExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(136, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TxtFunTel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TxtFunSal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtFunCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtFunNom)
-                        .addComponent(TxtFunEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtFunId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TxtFunFun, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtFunTel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TxtFunSal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtFunCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtFunNom)
+                                .addComponent(TxtFunEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TxtFunId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtFunFun, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(115, 115, 115))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BtnFunLim)
+                        .addGap(274, 274, 274))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +341,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnFunIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(28, 28, 28)
+                        .addComponent(BtnFunLim)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnFunEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -355,11 +379,23 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         remover();
     }//GEN-LAST:event_BtnFunExcActionPerformed
 
+    private void BtnFunLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFunLimActionPerformed
+        // TODO add your handling code here:
+        TxtFunId.setText(null);
+        TxtFunNom.setText(null);
+        TxtFunEnd.setText(null);
+        TxtFunTel.setText(null);
+        TxtFunFun.setText(null);
+        TxtFunCpf.setText(null);
+        TxtFunSal.setText(null);
+    }//GEN-LAST:event_BtnFunLimActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnFunEdi;
     private javax.swing.JButton BtnFunExc;
     private javax.swing.JButton BtnFunIns;
+    private javax.swing.JButton BtnFunLim;
     private javax.swing.JButton BtnFunPes;
     private javax.swing.JTextField TxtFunCpf;
     private javax.swing.JTextField TxtFunEnd;

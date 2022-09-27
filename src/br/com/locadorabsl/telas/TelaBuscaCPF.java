@@ -70,8 +70,21 @@ public class TelaBuscaCPF extends javax.swing.JFrame {
             new String [] {
                 "CPF", "Nome", "Telefone"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblBuscaCpf);
+        if (tblBuscaCpf.getColumnModel().getColumnCount() > 0) {
+            tblBuscaCpf.getColumnModel().getColumn(0).setResizable(false);
+            tblBuscaCpf.getColumnModel().getColumn(1).setResizable(false);
+            tblBuscaCpf.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jLabel1.setText("Busca de CPF");
 

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Aluno
  */
 public class TelaUsuario extends javax.swing.JInternalFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -27,40 +27,42 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-    
+
     private void adicionar() {
         String sql = "insert into usuario(nome, login, senha, telefone, perfil) values(?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtUsuNom.getText());
-            pst.setString(2, TxtUsuLog.getText());
-            pst.setString(3, TxtUsuSen.getText());
-            pst.setString(4, TxtUsuTel.getText());
-            pst.setString(5, TxtUsuPer.getText());
-            // validação dos campos obrigatórios
-            if ((((TxtUsuNom.getText().isEmpty()) || (TxtUsuLog.getText().isEmpty()))
-                    || (TxtUsuSen.getText().isEmpty())) || (TxtUsuTel.getText().isEmpty()) || (TxtUsuPer.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja adicionar este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtUsuNom.getText());
+                pst.setString(2, TxtUsuLog.getText());
+                pst.setString(3, TxtUsuSen.getText());
+                pst.setString(4, TxtUsuTel.getText());
+                pst.setString(5, CmbUsuPer.getSelectedItem().toString());
+                // validação dos campos obrigatórios
+                if ((((TxtUsuNom.getText().isEmpty()) || (TxtUsuLog.getText().isEmpty()))
+                        || (TxtUsuSen.getText().isEmpty())) || (TxtUsuTel.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
 
-                // a linha abaixo atualiza com os dados do formulario
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0);
-                {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
-                    TxtUsuId.setText(null);
-                    TxtUsuNom.setText(null);
-                    TxtUsuLog.setText(null);
-                    TxtUsuSen.setText(null);
-                    TxtUsuTel.setText(null);
-                    TxtUsuPer.setText(null);                  
+                    // a linha abaixo atualiza com os dados do formulario
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
+                        TxtUsuId.setText(null);
+                        TxtUsuNom.setText(null);
+                        TxtUsuLog.setText(null);
+                        TxtUsuSen.setText(null);
+                        TxtUsuTel.setText(null);
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     private void pesquisar() {
         String sql = "select * from usuario where iduser=?";
         try {
@@ -72,8 +74,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 TxtUsuLog.setText(rs.getString(3));
                 TxtUsuSen.setText(rs.getString(4));
                 TxtUsuTel.setText(rs.getString(5));
-                TxtUsuPer.setText(rs.getString(6));
-                
+                CmbUsuPer.setSelectedItem(rs.getString(6));
+
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não cadastrado");
                 TxtUsuId.setText(null);
@@ -81,47 +83,46 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 TxtUsuLog.setText(null);
                 TxtUsuSen.setText(null);
                 TxtUsuTel.setText(null);
-                TxtUsuPer.setText(null);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     private void editar() {
         String sql = "update usuario set nome=?, login=?, senha=?, telefone=?, perfil=? where iduser=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtUsuNom.getText());
-            pst.setString(2, TxtUsuLog.getText());
-            pst.setString(3, TxtUsuSen.getText());
-            pst.setString(4, TxtUsuTel.getText());
-            pst.setString(5, TxtUsuPer.getText());
-            pst.setString(6, TxtUsuId.getText());
-           
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar este funcionário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtUsuNom.getText());
+                pst.setString(2, TxtUsuLog.getText());
+                pst.setString(3, TxtUsuSen.getText());
+                pst.setString(4, TxtUsuTel.getText());
+                pst.setString(5, CmbUsuPer.getSelectedItem().toString());
+                pst.setString(6, TxtUsuId.getText());
 
-            if ((((TxtUsuNom.getText().isEmpty()))
-                    || (TxtUsuLog.getText().isEmpty())) || (TxtUsuSen.getText().isEmpty()) || (TxtUsuTel.getText().isEmpty()) || (TxtUsuPer.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-                int adicionado = pst.executeUpdate();
+                if ((((TxtUsuNom.getText().isEmpty()))
+                        || (TxtUsuLog.getText().isEmpty())) || (TxtUsuSen.getText().isEmpty()) || (TxtUsuTel.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    int adicionado = pst.executeUpdate();
 
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
-                    TxtUsuId.setText(null);
-                    TxtUsuNom.setText(null);
-                    TxtUsuLog.setText(null);
-                    TxtUsuSen.setText(null);
-                    TxtUsuTel.setText(null);
-                    TxtUsuPer.setText(null);
+                    if (adicionado > 0) {
+                        JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
+                        TxtUsuId.setText(null);
+                        TxtUsuNom.setText(null);
+                        TxtUsuLog.setText(null);
+                        TxtUsuSen.setText(null);
+                        TxtUsuTel.setText(null);
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-
         }
     }
-    
+
     private void remover() {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
@@ -138,7 +139,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     TxtUsuLog.setText(null);
                     TxtUsuSen.setText(null);
                     TxtUsuTel.setText(null);
-                    TxtUsuPer.setText(null);
 
                 }
             } catch (Exception e) {
@@ -168,11 +168,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         TxtUsuLog = new javax.swing.JTextField();
         TxtUsuSen = new javax.swing.JTextField();
         TxtUsuTel = new javax.swing.JTextField();
-        TxtUsuPer = new javax.swing.JTextField();
         BtnUsuIns = new javax.swing.JButton();
         BtnUsuPes = new javax.swing.JButton();
         BtnUsuEdi = new javax.swing.JButton();
         BtnUsuExc = new javax.swing.JButton();
+        CmbUsuPer = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -180,7 +180,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         setTitle("Usuário");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("User:");
+        jLabel1.setText("ID User:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Nome:");
@@ -198,6 +198,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jLabel6.setText("Perfil:");
 
         BtnUsuIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/adicionarnovo.png"))); // NOI18N
+        BtnUsuIns.setToolTipText("Inserir");
         BtnUsuIns.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnUsuIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +207,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         });
 
         BtnUsuPes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/pesquisar.png"))); // NOI18N
+        BtnUsuPes.setToolTipText("Pesquisar");
         BtnUsuPes.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnUsuPes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,6 +216,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         });
 
         BtnUsuEdi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/editar.png"))); // NOI18N
+        BtnUsuEdi.setToolTipText("Editar");
         BtnUsuEdi.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnUsuEdi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,12 +225,15 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         });
 
         BtnUsuExc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/locadorabsl/icones/excluir.png"))); // NOI18N
+        BtnUsuExc.setToolTipText("Excluir");
         BtnUsuExc.setPreferredSize(new java.awt.Dimension(80, 80));
         BtnUsuExc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnUsuExcActionPerformed(evt);
             }
         });
+
+        CmbUsuPer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -267,9 +273,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtUsuTel, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(TxtUsuPer))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtUsuTel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CmbUsuPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(235, 235, 235))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -302,14 +308,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                             .addComponent(TxtUsuSen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TxtUsuPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(89, 89, 89)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(CmbUsuPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnUsuIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnUsuPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,10 +350,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnUsuExc;
     private javax.swing.JButton BtnUsuIns;
     private javax.swing.JButton BtnUsuPes;
+    private javax.swing.JComboBox<String> CmbUsuPer;
     private javax.swing.JTextField TxtUsuId;
     private javax.swing.JTextField TxtUsuLog;
     private javax.swing.JTextField TxtUsuNom;
-    private javax.swing.JTextField TxtUsuPer;
     private javax.swing.JTextField TxtUsuSen;
     private javax.swing.JTextField TxtUsuTel;
     private javax.swing.JLabel jLabel1;

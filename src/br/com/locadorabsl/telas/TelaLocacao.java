@@ -23,131 +23,130 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     public TelaLocacao() {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-    
-    private void pesquisar() {
-    String sql = "select * from locacao where id_locacao=?";
-    try{
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1,TxtLocId.getText());
-        rs=pst.executeQuery();
-        if (rs.next()) {
-        TxtLocCpf.setText(rs.getString(2));
-        TxtLocVei.setText(rs.getString(3));
-        TxtLocVal.setText(rs.getString(4));
-        TxtLocFun.setText(rs.getString(5));
-        TxtLocPer.setText(rs.getString(6));
-        } else{
-            JOptionPane.showMessageDialog(null, "Locação não cadastrada");
-            TxtLocId.setText(null);
-            TxtLocCpf.setText(null);
-            TxtLocVei.setText(null);
-            TxtLocVal.setText(null);
-            TxtLocFun.setText(null);
-            TxtLocPer.setText(null);      
-        
-        }
-    }catch (Exception e ){
-        JOptionPane.showMessageDialog(null, e);
-    } 
-}
-    
-    private void adicionar(){
-    String sql = "insert into locacao(cpf_cliente, veiculo, periodo, valor, funcionario) values(?,?,?,?,?)";
-    try {
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1, TxtLocCpf.getText());
-        pst.setString(2, TxtLocVei.getText());
-        pst.setString(3, TxtLocPer.getText());
-        pst.setString(4, TxtLocVal.getText());
-        pst.setString(5, TxtLocFun.getText());
-        // validação dos campos obrigatórios
-        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty())) || 
-        (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-        } else {
-        
-        // a linha abaixo atualiza com os dados do formulario
-        int adicionado = pst.executeUpdate();
-        if(adicionado > 0);{
-        JOptionPane.showMessageDialog(null, "Locação adicionada com sucesso");
-            TxtLocId.setText(null);
-            TxtLocCpf.setText(null);
-            TxtLocVei.setText(null);
-            TxtLocVal.setText(null);
-            TxtLocFun.setText(null);
-            TxtLocPer.setText(null);
-    }
-        }    
-    }catch(Exception e) {
-        JOptionPane.showMessageDialog(null,e);
-    }
-}
 
-    private void editar(){
-    String sql="update locacao set cpf_cliente=?, veiculo=?, periodo=?, valor=?, funcionario=? where id_locacao=?";
-    try{
-        pst=conexao.prepareStatement(sql);
-        pst.setString(1, TxtLocCpf.getText());
-        pst.setString(2, TxtLocVei.getText());
-        pst.setString(3, TxtLocPer.getText());
-        pst.setString(4, TxtLocVal.getText());
-        pst.setString(5, TxtLocFun.getText());
-        pst.setString(6, TxtLocId.getText());
-       
-        
-        if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty())) || 
-        (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-        } else{
-            int adicionado = pst.executeUpdate();
-            
-            if (adicionado > 0) {
-                JOptionPane.showMessageDialog(null, "Dados da locação alterados com sucesso");
-                TxtLocId.setText(null);
-                TxtLocCpf.setText(null);
-                TxtLocVei.setText(null);
-                TxtLocVal.setText(null);
-                TxtLocFun.setText(null);
-                TxtLocPer.setText(null);
-                
+//    private void pesquisar() {
+//    String sql = "select * from locacao where id_locacao=?";
+//    try{
+//        pst=conexao.prepareStatement(sql);
+//        pst.setString(1,TxtLocId.getText());
+//        rs=pst.executeQuery();
+//        if (rs.next()) {
+//        TxtLocCpf.setText(rs.getString(2));
+//        TxtLocVei.setText(rs.getString(3));
+//        TxtLocVal.setText(rs.getString(4));
+//        TxtLocFun.setText(rs.getString(5));
+//        TxtLocPer.setText(rs.getString(6));
+//        } else{
+//            JOptionPane.showMessageDialog(null, "Locação não cadastrada");
+//            TxtLocId.setText(null);
+//            TxtLocCpf.setText(null);
+//            TxtLocVei.setText(null);
+//            TxtLocVal.setText(null);
+//            TxtLocFun.setText(null);
+//            TxtLocPer.setText(null);      
+//        
+//        }
+//    }catch (Exception e ){
+//        JOptionPane.showMessageDialog(null, e);
+//    } 
+//}
+    private void adicionar() {
+        String sql = "insert into locacao(cpf_cliente, veiculo, periodo, valor, funcionario) values(?,?,?,?,?)";
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja adicionar esta locação?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtLocCpf.getText());
+                pst.setString(2, TxtLocVei.getText());
+                pst.setString(3, TxtLocPer.getText());
+                pst.setString(4, TxtLocVal.getText());
+                pst.setString(5, TxtLocFun.getText());
+                // validação dos campos obrigatórios
+                if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty()))
+                        || (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+
+                    // a linha abaixo atualiza com os dados do formulario
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Locação adicionada com sucesso");
+                        limpar();
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
-        }catch(Exception e) {
-        JOptionPane.showMessageDialog(null,e);
-    
     }
-}
-    
-        private void remover () {
-    int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esta locação?", "Atenção", JOptionPane.YES_NO_OPTION);
-    if (confirma == JOptionPane.YES_OPTION) {
-        String sql = "delete from locacao where id_locacao=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtLocId.getText());
-            int apagado = pst.executeUpdate();
-            if (apagado > 0) {
-                JOptionPane.showMessageDialog(null, "Locação removida com sucesso");
-            
-                TxtLocId.setText(null);
-                TxtLocCpf.setText(null);
-                TxtLocVei.setText(null);
-                TxtLocVal.setText(null);
-                TxtLocFun.setText(null);
-                TxtLocPer.setText(null);
-            
-            }           
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+
+    private void editar() {
+        String sql = "update locacao set cpf_cliente=?, veiculo=?, periodo=?, valor=?, funcionario=? where id_locacao=?";
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar esta locação?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtLocCpf.getText());
+                pst.setString(2, TxtLocVei.getText());
+                pst.setString(3, TxtLocPer.getText());
+                pst.setString(4, TxtLocVal.getText());
+                pst.setString(5, TxtLocFun.getText());
+                pst.setString(6, TxtLocId.getText());
+
+                if ((((TxtLocCpf.getText().isEmpty()) || (TxtLocVei.getText().isEmpty()))
+                        || (TxtLocVal.getText().isEmpty())) || (TxtLocFun.getText().isEmpty()) || (TxtLocPer.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    int adicionado = pst.executeUpdate();
+
+                    if (adicionado > 0) {
+                        JOptionPane.showMessageDialog(null, "Dados da locação alterados com sucesso");
+                        limpar();
+
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }
 
-}
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esta locação?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from locacao where id_locacao=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtLocId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Locação removida com sucesso");
+                    limpar();
+                    
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
+    }
+    
+    private void limpar(){
+        TxtLocId.setText(null);
+        TxtLocCpf.setText(null);
+        TxtLocVei.setText(null);
+        TxtLocVal.setText(null);
+        TxtLocFun.setText(null);
+        TxtLocPer.setText(null);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -413,7 +412,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 new TelaBuscaCPF().setVisible(true);
             }
         });
-        
+
     }//GEN-LAST:event_BtnBusCpfActionPerformed
 
     private void TxtLocFunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocFunActionPerformed
@@ -422,7 +421,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
     private void TxtLocCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocCpfActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_TxtLocCpfActionPerformed
 
     private void TxtLocValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLocValActionPerformed
@@ -449,24 +448,24 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         System.out.println("CPF ::: " + cpf);
         TxtLocCpf.setText(cpf);
     }
-    
-    public static void veiculoSelecionado(String veiculo){
+
+    public static void veiculoSelecionado(String veiculo) {
         TxtLocVei.setText(veiculo);
     }
-    
-    public static void locIdSelecionado(int id){
+
+    public static void locIdSelecionado(int id) {
         TxtLocId.setText(String.valueOf(id));
     }
-    
-    public static void periodoSelecionado(String periodo){
+
+    public static void periodoSelecionado(String periodo) {
         TxtLocPer.setText(periodo);
     }
-    
-    public static void valorSelecionado(float valor){
+
+    public static void valorSelecionado(float valor) {
         TxtLocVal.setText(String.valueOf(valor));
     }
-    
-    public static void funcionarioSelecionado(String funcionario){
+
+    public static void funcionarioSelecionado(String funcionario) {
         TxtLocFun.setText(funcionario);
     }
 

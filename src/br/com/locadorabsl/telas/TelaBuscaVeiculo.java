@@ -105,7 +105,7 @@ public class TelaBuscaVeiculo extends javax.swing.JFrame {
             }
         });
 
-        BtnBusVei.setText("OK");
+        BtnBusVei.setText("Selecionar");
         BtnBusVei.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnBusVeiActionPerformed(evt);

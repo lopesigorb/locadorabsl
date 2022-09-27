@@ -59,88 +59,79 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 //            JOptionPane.showMessageDialog(null, e);
 //        }
 //    }
-
     private void adicionar() {
         String sql = "insert into cliente(cpf, nome, endereco, telefone, cnh) values(?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtCliCpf.getText());
-            pst.setString(2, TxtCliNom.getText());
-            pst.setString(3, TxtCliEnd.getText());
-            pst.setString(4, TxtCliTel.getText());
-            pst.setString(5, TxtCliCnh.getText());
-            // validação dos campos obrigatórios
-            if ((((TxtCliCpf.getText().isEmpty()) || (TxtCliNom.getText().isEmpty()))
-                    || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja adicionar este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtCliCpf.getText());
+                pst.setString(2, TxtCliNom.getText());
+                pst.setString(3, TxtCliEnd.getText());
+                pst.setString(4, TxtCliTel.getText());
+                pst.setString(5, TxtCliCnh.getText());
+                // validação dos campos obrigatórios
+                if ((((TxtCliCpf.getText().isEmpty()) || (TxtCliNom.getText().isEmpty()))
+                        || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
 
-                // a linha abaixo atualiza com os dados do formulario
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0);
-                {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
-                    TxtCliCpf.setText(null);
-                    TxtCliNom.setText(null);
-                    TxtCliEnd.setText(null);
-                    TxtCliTel.setText(null);
-                    TxtCliCnh.setText(null);
+                    // a linha abaixo atualiza com os dados do formulario
+                    int adicionado = pst.executeUpdate();
+                    if (adicionado > 0);
+                    {
+                        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
+                        limpar();
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
         }
     }
 
     private void editar() {
         String sql = "update cliente set cpf=?, nome=?, endereco=?, telefone=?, cnh=? where id_cliente=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, TxtCliCpf.getText());
-            pst.setString(2, TxtCliNom.getText());
-            pst.setString(3, TxtCliEnd.getText());
-            pst.setString(4, TxtCliTel.getText());
-            pst.setString(5, TxtCliCnh.getText());
-            pst.setString(6, TxtCliId.getText());
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja editar este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, TxtCliCpf.getText());
+                pst.setString(2, TxtCliNom.getText());
+                pst.setString(3, TxtCliEnd.getText());
+                pst.setString(4, TxtCliTel.getText());
+                pst.setString(5, TxtCliCnh.getText());
+                pst.setString(6, TxtCliId.getText());
 
-            if ((((TxtCliNom.getText().isEmpty()))
-                    || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
-            } else {
-                int adicionado = pst.executeUpdate();
+                if ((((TxtCliNom.getText().isEmpty()))
+                        || (TxtCliEnd.getText().isEmpty())) || (TxtCliTel.getText().isEmpty()) || (TxtCliCnh.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+                } else {
+                    int adicionado = pst.executeUpdate();
 
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
-                    TxtCliId.setText(null);
-                    TxtCliCpf.setText(null);
-                    TxtCliNom.setText(null);
-                    TxtCliEnd.setText(null);
-                    TxtCliTel.setText(null);
-                    TxtCliCnh.setText(null);
+                    if (adicionado > 0) {
+                        JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
+                        limpar();
 
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-
         }
     }
 
     private void remover() {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from cliente where cpf=?";
+            String sql = "delete from cliente where id_cliente=?";
             try {
                 pst = conexao.prepareStatement(sql);
-                pst.setString(1, TxtCliCpf.getText());
+                pst.setString(1, TxtCliId.getText());
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
-                    TxtCliCpf.setText(null);
-                    TxtCliNom.setText(null);
-                    TxtCliEnd.setText(null);
-                    TxtCliTel.setText(null);
-                    TxtCliCnh.setText(null);
+                    limpar();
 
                 }
             } catch (Exception e) {
@@ -150,6 +141,15 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     }
 
+    
+    private void limpar(){
+        TxtCliId.setText(null);
+        TxtCliCpf.setText(null);
+        TxtCliNom.setText(null);
+        TxtCliEnd.setText(null);
+        TxtCliTel.setText(null);
+        TxtCliCnh.setText(null);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,7 +179,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cliente");
         setPreferredSize(new java.awt.Dimension(671, 557));
 
@@ -246,7 +245,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         });
 
         TxtCliId.setEditable(false);
-        TxtCliId.setDisabledTextColor(new java.awt.Color(153, 153, 153));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("ID do Cliente:");
@@ -364,27 +362,27 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         TxtCliCnh.setText(null);
     }//GEN-LAST:event_BtnCliLimActionPerformed
 
-    public static void cliCpfSelecionado(String cpf){
+    public static void cliCpfSelecionado(String cpf) {
         TxtCliCpf.setText(cpf);
     }
-    
-    public static void cliNomSelecionado(String nome){
+
+    public static void cliNomSelecionado(String nome) {
         TxtCliNom.setText(nome);
     }
-    
-    public static void cliEndSelecionado(String endereco){
+
+    public static void cliEndSelecionado(String endereco) {
         TxtCliEnd.setText(endereco);
     }
-    
-    public static void cliTelSelecionado(String telefone){
+
+    public static void cliTelSelecionado(String telefone) {
         TxtCliTel.setText(telefone);
     }
-    
-    public static void cliCnhSelecionado(String cnh){
+
+    public static void cliCnhSelecionado(String cnh) {
         TxtCliCnh.setText(cnh);
     }
-    
-    public static void cliIdSelecionado(int id){
+
+    public static void cliIdSelecionado(int id) {
         TxtCliId.setText(String.valueOf(id));
     }
 
