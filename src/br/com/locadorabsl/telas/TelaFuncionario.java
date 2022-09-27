@@ -43,13 +43,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 TxtFunSal.setText(rs.getString(7));
             } else {
                 JOptionPane.showMessageDialog(null, "Funcionário não cadastrado");
-                TxtFunId.setText(null);
-                TxtFunNom.setText(null);
-                TxtFunEnd.setText(null);
-                TxtFunTel.setText(null);
-                TxtFunFun.setText(null);
-                TxtFunCpf.setText(null);
-                TxtFunSal.setText(null);
+                limpar();
 
             }
         } catch (Exception e) {
@@ -80,13 +74,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     if (adicionado > 0);
                     {
                         JOptionPane.showMessageDialog(null, "Funcionário adicionado com sucesso");
-                        TxtFunId.setText(null);
-                        TxtFunNom.setText(null);
-                        TxtFunEnd.setText(null);
-                        TxtFunTel.setText(null);
-                        TxtFunFun.setText(null);
-                        TxtFunCpf.setText(null);
-                        TxtFunSal.setText(null);
+                        limpar();
                     }
                 }
             } catch (Exception e) {
@@ -116,14 +104,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     int adicionado = pst.executeUpdate();
 
                     if (adicionado > 0) {
-                        JOptionPane.showMessageDialog(null, "Dados do Funcionário alterados com sucesso");
-                        TxtFunId.setText(null);
-                        TxtFunNom.setText(null);
-                        TxtFunEnd.setText(null);
-                        TxtFunTel.setText(null);
-                        TxtFunFun.setText(null);
-                        TxtFunCpf.setText(null);
-                        TxtFunSal.setText(null);
+                        JOptionPane.showMessageDialog(null, "Dados do funcionário alterados com sucesso");
+                        limpar();
 
                     }
                 }
@@ -143,14 +125,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Funcionário removido com sucesso");
-
-                    TxtFunId.setText(null);
-                    TxtFunNom.setText(null);
-                    TxtFunEnd.setText(null);
-                    TxtFunTel.setText(null);
-                    TxtFunFun.setText(null);
-                    TxtFunCpf.setText(null);
-                    TxtFunSal.setText(null);
+                    limpar();
+                    
 
                 }
             } catch (Exception e) {
@@ -158,6 +134,16 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
             }
         }
 
+    }
+    
+    private void limpar(){
+        TxtFunId.setText(null);
+        TxtFunNom.setText(null);
+        TxtFunEnd.setText(null);
+        TxtFunTel.setText(null);
+        TxtFunFun.setText(null);
+        TxtFunCpf.setText(null);
+        TxtFunSal.setText(null);
     }
 
     /**
@@ -187,11 +173,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         BtnFunExc = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         TxtFunSal = new javax.swing.JTextField();
-        BtnFunLim = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Funcionario");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -257,13 +241,6 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Salário:");
 
-        BtnFunLim.setText("Limpar Campos");
-        BtnFunLim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnFunLimActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,29 +258,24 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtFunTel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(TxtFunSal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TxtFunCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TxtFunNom)
-                                .addComponent(TxtFunEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TxtFunId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(TxtFunFun, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(115, 115, 115))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BtnFunLim)
-                        .addGap(274, 274, 274))))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtFunTel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(TxtFunSal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtFunCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtFunNom)
+                        .addComponent(TxtFunEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtFunId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtFunFun, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,9 +313,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnFunIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(BtnFunLim)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnFunEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -379,23 +349,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         remover();
     }//GEN-LAST:event_BtnFunExcActionPerformed
 
-    private void BtnFunLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFunLimActionPerformed
-        // TODO add your handling code here:
-        TxtFunId.setText(null);
-        TxtFunNom.setText(null);
-        TxtFunEnd.setText(null);
-        TxtFunTel.setText(null);
-        TxtFunFun.setText(null);
-        TxtFunCpf.setText(null);
-        TxtFunSal.setText(null);
-    }//GEN-LAST:event_BtnFunLimActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnFunEdi;
     private javax.swing.JButton BtnFunExc;
     private javax.swing.JButton BtnFunIns;
-    private javax.swing.JButton BtnFunLim;
     private javax.swing.JButton BtnFunPes;
     private javax.swing.JTextField TxtFunCpf;
     private javax.swing.JTextField TxtFunEnd;

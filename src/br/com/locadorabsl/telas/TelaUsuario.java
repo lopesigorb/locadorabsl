@@ -49,12 +49,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     int adicionado = pst.executeUpdate();
                     if (adicionado > 0);
                     {
-                        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
-                        TxtUsuId.setText(null);
-                        TxtUsuNom.setText(null);
-                        TxtUsuLog.setText(null);
-                        TxtUsuSen.setText(null);
-                        TxtUsuTel.setText(null);
+                        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
+                        limpar();
                     }
                 }
             } catch (Exception e) {
@@ -77,12 +73,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 CmbUsuPer.setSelectedItem(rs.getString(6));
 
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado");
-                TxtUsuId.setText(null);
-                TxtUsuNom.setText(null);
-                TxtUsuLog.setText(null);
-                TxtUsuSen.setText(null);
-                TxtUsuTel.setText(null);
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado.");
+                limpar();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -110,11 +102,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
                     if (adicionado > 0) {
                         JOptionPane.showMessageDialog(null, "Dados do Usuário alterados com sucesso");
-                        TxtUsuId.setText(null);
-                        TxtUsuNom.setText(null);
-                        TxtUsuLog.setText(null);
-                        TxtUsuSen.setText(null);
-                        TxtUsuTel.setText(null);
+                        limpar();
                     }
                 }
             } catch (Exception e) {
@@ -133,12 +121,8 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário removido com sucesso");
-
-                    TxtUsuId.setText(null);
-                    TxtUsuNom.setText(null);
-                    TxtUsuLog.setText(null);
-                    TxtUsuSen.setText(null);
-                    TxtUsuTel.setText(null);
+                    limpar();
+                    
 
                 }
             } catch (Exception e) {
@@ -146,6 +130,14 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         }
 
+    }
+    
+    private void limpar(){
+        TxtUsuId.setText(null);
+        TxtUsuNom.setText(null);
+        TxtUsuLog.setText(null);
+        TxtUsuSen.setText(null);
+        TxtUsuTel.setText(null);
     }
 
     /**
@@ -176,7 +168,6 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Usuário");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

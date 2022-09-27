@@ -173,7 +173,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         BtnCliIns = new javax.swing.JButton();
         BtnCliPes = new javax.swing.JButton();
         TxtCliCpf = new javax.swing.JFormattedTextField();
-        BtnCliLim = new javax.swing.JButton();
         TxtCliId = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
@@ -237,13 +236,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        BtnCliLim.setText("Limpar Campos");
-        BtnCliLim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCliLimActionPerformed(evt);
-            }
-        });
-
         TxtCliId.setEditable(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -285,10 +277,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TxtCliId, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(112, 112, 112))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(BtnCliLim)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,15 +303,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TxtCliCnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(BtnCliLim)
-                .addGap(28, 28, 28)
+                .addGap(88, 88, 88)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnCliExc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCliEdi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCliPes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCliIns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -351,16 +337,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         remover();
     }//GEN-LAST:event_BtnCliExcActionPerformed
-
-    private void BtnCliLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCliLimActionPerformed
-        // TODO add your handling code here:
-        TxtCliId.setText(null);
-        TxtCliCpf.setText(null);
-        TxtCliNom.setText(null);
-        TxtCliEnd.setText(null);
-        TxtCliTel.setText(null);
-        TxtCliCnh.setText(null);
-    }//GEN-LAST:event_BtnCliLimActionPerformed
 
     public static void cliCpfSelecionado(String cpf) {
         TxtCliCpf.setText(cpf);
@@ -390,7 +366,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnCliEdi;
     private javax.swing.JButton BtnCliExc;
     private javax.swing.JButton BtnCliIns;
-    private javax.swing.JButton BtnCliLim;
     private javax.swing.JButton BtnCliPes;
     private static javax.swing.JTextField TxtCliCnh;
     private static javax.swing.JFormattedTextField TxtCliCpf;

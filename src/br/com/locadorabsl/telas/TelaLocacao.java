@@ -173,12 +173,10 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         BtnLocExc = new javax.swing.JButton();
         BtnLocPes = new javax.swing.JButton();
         BtnBusCpf = new javax.swing.JButton();
-        BtnLocLim = new javax.swing.JButton();
         BtnBusVei = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Locação");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -269,13 +267,6 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             }
         });
 
-        BtnLocLim.setText("Limpar Campos");
-        BtnLocLim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLocLimActionPerformed(evt);
-            }
-        });
-
         BtnBusVei.setText("Buscar Veículo");
         BtnBusVei.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +287,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 .addComponent(BtnLocEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(BtnLocExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
+                .addGap(0, 105, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -326,10 +317,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                                 .addGap(53, 53, 53)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnBusCpf)
-                                    .addComponent(BtnBusVei)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(BtnLocLim)))
+                                    .addComponent(BtnBusVei))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -362,9 +350,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtLocFun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(BtnLocLim)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(BtnLocExc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnLocPes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,16 +420,6 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_BtnBusVeiActionPerformed
 
-    private void BtnLocLimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLocLimActionPerformed
-        // TODO add your handling code here:
-        TxtLocId.setText(null);
-        TxtLocCpf.setText(null);
-        TxtLocVei.setText(null);
-        TxtLocVal.setText(null);
-        TxtLocFun.setText(null);
-        TxtLocPer.setText(null);
-    }//GEN-LAST:event_BtnLocLimActionPerformed
-
     public static void clienteSelecionado(String cpf) {
         System.out.println("CPF ::: " + cpf);
         TxtLocCpf.setText(cpf);
@@ -475,7 +451,6 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnLocEdi;
     private javax.swing.JButton BtnLocExc;
     private javax.swing.JButton BtnLocIns;
-    private javax.swing.JButton BtnLocLim;
     private javax.swing.JButton BtnLocPes;
     private static javax.swing.JTextField TxtLocCpf;
     private static javax.swing.JTextField TxtLocFun;
